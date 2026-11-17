@@ -1,0 +1,31 @@
+# MethodSpec: plain PINN baseline for the plate-with-hole problem
+
+method: baseline
+variant: plain_pinn
+path: pinn
+
+sampling:
+  name: uniform
+  interior: 512
+  boundary: 128
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 10.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+network:
+  name: mlp
+  hidden_layers: [64, 64, 64, 64]
+  activation: tanh
+
+differentiator:
+  mode: autodiff
+
+training:
+  steps: 5000

@@ -1,0 +1,4 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "几何创建、导入与编辑"
+msgstr "Create, import, and edit geometry"

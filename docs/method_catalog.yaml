@@ -1,0 +1,208 @@
+# OpenPINN 方法文档的唯一目录数据源。
+# 新增变体时：实现并注册代码 → 在所属 family 的 variants 下增加一项 → 新建详情页。
+families:
+  - method: baseline
+    title: 普通 PINN
+    variants:
+      - variant: plain_pinn
+        title: 普通 PINN
+        summary: 使用普通全连接网络、均匀采样、固定损失权重和 Adam，作为所有改进方法的对照组。
+        suitable_for: 建立基线、检查新方程是否可训练，以及判断改进方法是否真正带来收益。
+        paper_title: "Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations"
+        paper_url: https://doi.org/10.1016/j.jcp.2018.10.045
+        code_url: ""
+        code_license: OpenPINN 独立实现；本目录不引用外部代码。
+        doc: methods/baseline
+
+  - method: modified_mlp
+    title: 改进 MLP
+    variants:
+      - variant: gated_mlp
+        title: 门控 Modified MLP
+        summary: 用两个编码分支和门控混合代替普通 MLP，改善深层 PINN 中的信息与梯度传递。
+        suitable_for: 梯度传播困难、多尺度或普通 MLP 表达不足的问题；仍需与同规模普通 MLP 公平比较。
+        paper_title: Understanding and Mitigating Gradient Flow Pathologies in Physics-Informed Neural Networks
+        paper_url: https://doi.org/10.1137/20M1318043
+        code_url: https://github.com/PredictiveIntelligenceLab/GradientPathologiesPINNs
+        code_license: 未检测到明确 LICENSE；OpenPINN 仅依据论文独立实现。
+        doc: methods/modified_mlp
+
+  - method: adaptive_activation
+    title: 自适应激活
+    variants:
+      - variant: adaptive_tanh
+        title: 可训练斜率 tanh
+        summary: 把固定 tanh 改成带可训练斜率的 tanh，让网络在训练中调整非线性尺度。
+        suitable_for: 解具有陡峭变化、频率成分较复杂或固定激活函数收敛缓慢的方程。
+        paper_title: Adaptive activation functions accelerate convergence in deep and physics-informed neural networks
+        paper_url: https://doi.org/10.1016/j.jcp.2019.109136
+        code_url: https://github.com/AmeyaJagtap/Adaptive_Activation_Functions
+        code_license: MIT；OpenPINN 按论文公式独立实现 PyTorch 版本。
+        doc: methods/adaptive_activation
+
+  - method: fourier
+    title: Fourier 特征
+    variants:
+      - variant: random_fourier
+        title: 固定随机 Fourier 特征
+        summary: 在 MLP 前把坐标映射为多频率正弦和余弦特征，减轻网络只先学习低频成分的倾向。
+        suitable_for: 高频解、多尺度解、波动和反应扩散等普通 MLP 容易出现谱偏差的问题。
+        paper_title: "On the eigenvector bias of Fourier feature networks: From regression to solving multi-scale PDEs with physics-informed neural networks"
+        paper_url: https://doi.org/10.1016/j.cma.2021.113938
+        code_url: https://github.com/PredictiveIntelligenceLab/MultiscalePINNs
+        code_license: 未检测到明确 LICENSE；OpenPINN 未复制该仓库实现。
+        doc: methods/fourier_features
+
+  - method: hard_boundary
+    title: 硬边界约束
+    variants:
+      - variant: exact_output_transform
+        title: 解析输出变换
+        summary: 用满足边界或初值条件的解析结构改写网络输出，使这些条件无需通过软罚项近似满足。
+        suitable_for: 边界形式明确并能构造消失函数或距离函数的问题；复杂几何需另行提供合法变换。
+        paper_title: Exact imposition of boundary conditions with distance functions in physics-informed deep neural networks
+        paper_url: https://doi.org/10.1016/j.cma.2021.114333
+        code_url: https://github.com/lululxvi/deepxde
+        code_license: LGPL-2.1；OpenPINN 只按试探解思想独立实现已支持问题的变换。
+        doc: methods/hard_boundary
+
+  - method: adaptive_weights
+    title: 损失平衡与自适应权重
+    variants:
+      - variant: self_adaptive
+        title: 项级自适应权重
+        summary: 为 PDE、边界和初值等损失项各学习一个正权重，网络下降而权重上升。
+        suitable_for: 少量损失大项之间长期失衡的情况；它不是论文中的逐配点完整 SA-PINN。
+        paper_title: Self-adaptive physics-informed neural networks
+        paper_url: https://doi.org/10.1016/j.jcp.2022.111722
+        code_url: https://github.com/levimcclenny/SA-PINNs
+        code_license: 未检测到明确 LICENSE；当前项级版本仅依据鞍点思想独立实现。
+        doc: methods/adaptive_weights
+      - variant: uncertainty_weighting
+        title: 不确定性损失权重
+        summary: 为每项损失学习对数方差，用 exp(-s) 自动缩放不同任务并用正则项防止权重塌缩。
+        suitable_for: 多项损失尺度或噪声水平差异明显的问题；不等同于“误差越大权重越大”。
+        paper_title: Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics
+        paper_url: https://arxiv.org/abs/1705.07115
+        code_url: ""
+        code_license: OpenPINN 按公开公式独立实现；未复制外部代码。
+        doc: methods/adaptive_weights/uncertainty_weighting
+      - variant: relobralo
+        title: ReLoBRaLo 相对损失平衡
+        summary: 根据各损失相对初值和相对上一步的变化，结合随机回看与指数平滑更新权重。
+        suitable_for: 多个竞争损失下降速度不一致、又不希望增加模型可训练参数的问题。
+        paper_title: Multi-Objective Loss Balancing for Physics-Informed Deep Learning
+        paper_url: https://doi.org/10.1016/j.cma.2025.117914
+        code_url: https://github.com/rbischof/relative_balancing
+        code_license: 未检测到明确 LICENSE；OpenPINN 仅按论文公式独立实现。
+        doc: methods/adaptive_weights/relobralo
+      - variant: magnitude_power
+        title: MMPINN 多量级幂损失
+        summary: 对不同损失项使用固定分数幂压缩数量级，使量级相差很大的目标更接近。
+        suitable_for: 多尺度问题中监督项与 PDE 残差跨多个数量级的情况；参数固定，不是自更新权重。
+        paper_title: A practical PINN framework for multi-scale problems with multi-magnitude loss terms
+        paper_url: https://doi.org/10.1016/j.jcp.2024.113112
+        code_url: https://github.com/wangyong1301108/MMPINN
+        code_license: 未检测到明确 LICENSE；OpenPINN 只实现损失幂变换且不复制源码。
+        doc: methods/adaptive_weights/magnitude_power
+      - variant: pointwise_self_adaptive
+        title: 逐点自适应 SA-PINN
+        summary: 为每个 PDE、边界和初值训练点学习正权重，以软注意力方式突出当前困难区域。
+        suitable_for: 难点具有明显空间或时间局部性的固定配点问题；会增加与训练点数相当的参数。
+        paper_title: Self-adaptive physics-informed neural networks
+        paper_url: https://doi.org/10.1016/j.jcp.2022.111722
+        code_url: https://github.com/levimcclenny/SA-PINNs
+        code_license: 未检测到明确 LICENSE；OpenPINN 按论文鞍点公式独立实现。
+        doc: methods/adaptive_weights/pointwise_self_adaptive
+
+  - method: adaptive_sampling
+    title: 自适应采样
+    variants:
+      - variant: residual_adaptive
+        title: 残差自适应重采样
+        summary: 周期性计算候选点 PDE 残差，并按残差分布重新选择整批内部训练点。
+        suitable_for: 误差集中在局部区域、均匀采样浪费训练点且允许周期性重选点的问题。
+        paper_title: A comprehensive study of non-adaptive and residual-based adaptive sampling for physics-informed neural networks
+        paper_url: https://doi.org/10.1016/j.cma.2022.115671
+        code_url: https://github.com/lu-group/pinn-sampling
+        code_license: Apache-2.0；OpenPINN 按论文描述独立实现 RAD 风格采样器。
+        doc: methods/adaptive_sampling
+      - variant: residual_movement
+        title: RAM 残差配点移动
+        summary: 保留一部分固定点提供全局覆盖，再按 PDE 残差移动其余配点，训练点总数不变。
+        suitable_for: 希望点数固定、同时让部分计算集中到高残差区域的问题。
+        paper_title: Enhancing PINNs for solving PDEs via adaptive collocation point movement and adaptive loss weighting
+        paper_url: https://doi.org/10.1007/s11071-023-08654-w
+        code_url: https://github.com/hsbhc/AMAW-PINN
+        code_license: 未检测到明确 LICENSE；OpenPINN 只依据论文独立实现。
+        doc: methods/adaptive_sampling/residual_movement
+      - variant: gradient_movement
+        title: WAM 梯度配点移动
+        summary: 与 RAM 共用固定点和移动点框架，但使用网络解的空间梯度作为移动指标。
+        suitable_for: 解在局部变化陡峭而 PDE 残差指标不稳定或不够直接的问题。
+        paper_title: Enhancing PINNs for solving PDEs via adaptive collocation point movement and adaptive loss weighting
+        paper_url: https://doi.org/10.1007/s11071-023-08654-w
+        code_url: https://github.com/hsbhc/AMAW-PINN
+        code_license: 未检测到明确 LICENSE；OpenPINN 只依据论文独立实现。
+        doc: methods/adaptive_sampling/gradient_movement
+      - variant: importance_sampling
+        title: 损失重要性采样
+        summary: 让高逐点损失候选点更容易被抽中，并用逆概率权重修正训练目标的抽样偏差。
+        suitable_for: 有限候选池中损失高度不均匀、需要提高抽样效率且能监测方差的问题。
+        paper_title: Efficient training of physics-informed neural networks via importance sampling
+        paper_url: https://doi.org/10.1111/mice.12685
+        code_url: ""
+        code_license: OpenPINN 按论文公式独立实现有限候选池版本；未复制外部代码。
+        doc: methods/adaptive_sampling/importance_sampling
+
+  - method: adam_lbfgs
+    title: 分阶段优化器
+    variants:
+      - variant: adam_then_lbfgs
+        title: Adam 后接 L-BFGS
+        summary: 先用 Adam 稳定找到可用区域，再用全批量 L-BFGS 根据曲率近似精修参数。
+        suitable_for: 全批量可承受、损失已进入较低区域且需要进一步降低残差的小中型问题。
+        paper_title: "Challenges in Training PINNs: A Loss Landscape Perspective"
+        paper_url: https://proceedings.mlr.press/v235/rathore24a.html
+        code_url: https://github.com/pratikrathore8/opt_for_pinns
+        code_license: 未检测到明确 LICENSE；OpenPINN 只组合 PyTorch 自带优化器。
+        doc: methods/adam_lbfgs
+
+  - method: time_window
+    title: 时间窗训练
+    variants:
+      - variant: causal_window
+        title: 顺序因果时间窗
+        summary: 从早期时间段开始训练，再逐步扩展到完整时间域，降低后期状态反过来干扰早期学习的风险。
+        suitable_for: 包含时间维度、长时间或强非线性的动态问题；不适用于纯静态方程。
+        paper_title: Respecting causality for training physics-informed neural networks
+        paper_url: https://doi.org/10.1016/j.cma.2024.116813
+        code_url: https://github.com/PredictiveIntelligenceLab/CausalPINNs
+        code_license: CC BY-NC-SA 4.0 且仓库声明专利边界；OpenPINN 的顺序时间窗不是该算法复刻。
+        doc: methods/time_window
+
+  - method: transfer
+    title: 迁移学习
+    variants:
+      - variant: checkpoint_transfer
+        title: 兼容检查点迁移
+        summary: 从结构兼容的已训练 checkpoint 初始化新任务，再选择全网络或最后若干层继续训练。
+        suitable_for: 方程、参数区间或时间域相近且网络输入输出结构兼容的一组相关任务。
+        paper_title: Improving physics-informed neural network extrapolation via transfer learning and adaptive activation functions
+        paper_url: https://doi.org/10.1007/978-3-032-04555-3_24
+        code_url: https://github.com/LiuzLab/PINN-extrapolation
+        code_license: 未检测到明确 LICENSE；OpenPINN 独立实现通用检查点迁移入口。
+        doc: methods/transfer_learning
+
+  - method: domain_decomposition
+    title: 区域分解
+    variants:
+      - variant: two_subdomain
+        title: 两子域多网络分解
+        summary: 在两个材料子区使用独立网络，并通过解连续和通量连续损失连接界面。
+        suitable_for: 系数跳变、界面或不同区域解尺度差异明显的一维非均质问题。
+        paper_title: "Extended Physics-Informed Neural Networks (XPINNs): A Generalized Space-Time Domain Decomposition Based Deep Learning Framework for Nonlinear Partial Differential Equations"
+        paper_url: https://doi.org/10.4208/cicp.OA-2020-0164
+        code_url: https://github.com/AmeyaJagtap/XPINNs
+        code_license: MIT；OpenPINN 按区域分解与界面匹配概念独立实现。
+        doc: methods/domain_decomposition

@@ -1,0 +1,7 @@
+problem:
+  name: burgers
+  domain:
+    x: [-1.0, 1.0]
+    t: [0.0, 1.0]
+  parameters:
+    viscosity: 0.003183098861837907

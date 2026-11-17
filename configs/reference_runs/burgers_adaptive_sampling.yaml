@@ -1,0 +1,77 @@
+schema_version: 1
+experiment:
+  name: burgers_adaptive_sampling
+  description: Fixed-seed comparison changing only uniform to residual-adaptive interior sampling.
+  seed: 20260826
+  device: cpu
+  dtype: float32
+
+problem:
+  name: burgers_1d
+  kind: dynamic
+  domain:
+    x: [-1.0, 1.0]
+    t: [0.0, 1.0]
+  parameters:
+    viscosity: 0.003183098861837907
+  equation: "u_t + u u_x - nu u_xx = 0"
+  initial_condition: "-sin(pi x)"
+  boundary_conditions:
+    type: dirichlet
+    value: 0.0
+
+model:
+  name: mlp
+  input_dim: 2
+  output_dim: 1
+  hidden_layers: [64, 64, 64, 64]
+  activation: tanh
+  initialization: xavier_uniform
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: residual_adaptive
+  interior: 512
+  boundary: 64
+  initial: 64
+  options:
+    candidate_pool: 2048
+    power: 1.0
+    uniform_mix: 0.1
+    epsilon: 0.000000000001
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+    initial: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 1500
+  resample_every: 50
+  log_every: 50
+
+evaluation:
+  points:
+    space: 129
+    time: 4
+  time_slices: [0.0, 0.33, 0.67, 1.0]
+  metrics: [relative_l2_error, max_absolute_error, rmse, residual_rmse, boundary_rmse, initial_rmse]
+  note: The Cole-Hopf reference is used only for post-training evaluation.
+
+output:
+  root: runs/burgers_adaptive_sampling
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

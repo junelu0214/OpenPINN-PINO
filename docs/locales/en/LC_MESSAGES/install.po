@@ -1,0 +1,4 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "安装与运行环境配置"
+msgstr "Installation and runtime setup"

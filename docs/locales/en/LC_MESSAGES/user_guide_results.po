@@ -1,0 +1,4 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "结果验证与实验交接"
+msgstr "Result validation and experiment handoff"

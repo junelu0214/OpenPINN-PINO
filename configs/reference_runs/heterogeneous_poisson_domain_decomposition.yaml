@@ -1,0 +1,66 @@
+schema_version: 1
+experiment:
+  name: heterogeneous_poisson_domain_decomposition
+  description: Fixed-seed comparison of one MLP and two interface-coupled subnetworks.
+  seed: 20260826
+  device: cpu
+  dtype: float32
+
+problem:
+  name: heterogeneous_poisson_1d
+  kind: heterogeneous_static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    interface: 0.0
+    left_diffusivity: 1.0
+    right_diffusivity: 4.0
+  equation: "-(a(x) u_x)_x = 0"
+  exact_solution: "continuous piecewise linear field"
+  boundary_conditions:
+    type: dirichlet
+    value: [0.0, 1.0]
+
+model:
+  name: domain_decomposition
+  input_dim: 1
+  output_dim: 1
+  hidden_layers: [32, 32, 32]
+  activation: tanh
+  initialization: xavier_uniform
+  options:
+    interface: 0.0
+
+sampling:
+  name: uniform
+  interior: 256
+  boundary: 32
+
+loss:
+  formulation: interface_strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+    interface_solution: 1.0
+    interface_flux: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 1500
+  log_every: 250
+
+evaluation:
+  points: 501
+  metrics: [relative_l2, max_abs_error, residual_rmse, boundary_rmse]
+
+output:
+  root: runs/heterogeneous_poisson_domain_decomposition
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

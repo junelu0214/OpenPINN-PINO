@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1310" viewBox="0 0 1800 1310" role="img" aria-labelledby="title desc">
+  <title id="title">OpenPINN 项目目录总览</title>
+  <desc id="desc">按开发源码、文档、运行数据、项目配置与历史记录说明 OpenPINN 根目录文件及主要子目录的用途。</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; }
+    .title { font-size: 43px; font-weight: 700; fill: #17324d; }
+    .subtitle { font-size: 23px; fill: #536c80; }
+    .group-title { font-size: 30px; font-weight: 700; fill: #17324d; }
+    .path { font-size: 23px; font-weight: 650; fill: #1f5275; }
+    .path-small { font-size: 19px; }
+    .desc { font-size: 22px; fill: #344e61; }
+    .muted { fill: #647584; }
+    .tag { font-size: 18px; font-weight: 700; }
+    .line { stroke: #d9e4ea; stroke-width: 1.5; }
+  </style>
+  <rect width="1800" height="1310" fill="#f7fafc"/>
+  <text class="title" x="60" y="76">OpenPINN 项目目录总览</text>
+  <text class="subtitle" x="60" y="115">以项目根目录为准 · 路径左侧是文件/文件夹，右侧是用途</text>
+  <rect x="1362" y="43" width="365" height="64" rx="24" fill="#e5f1e8"/>
+  <text x="1390" y="83" class="tag" fill="#287047">绿色分组＝运行产物需甄别</text>
+
+  <rect x="48" y="152" width="840" height="410" rx="22" fill="#ffffff" stroke="#cbdfe9" stroke-width="2"/>
+  <rect x="48" y="152" width="840" height="66" rx="22" fill="#e9f4fb"/>
+  <rect x="48" y="193" width="840" height="25" fill="#e9f4fb"/>
+  <text class="group-title" x="78" y="197">① 核心开发与示例</text>
+  <g transform="translate(78 258)">
+    <text class="path" x="0" y="0">src/openpinn/</text><text class="desc" x="290" y="0">框架源码：模型、几何、训练与方法</text>
+    <line class="line" x1="0" y1="16" x2="780" y2="16"/>
+    <text class="path" x="0" y="47">configs/</text><text class="desc" x="290" y="47">问题、方法、训练及复现配置</text>
+    <line class="line" x1="0" y1="63" x2="780" y2="63"/>
+    <text class="path" x="0" y="94">catalog/</text><text class="desc" x="290" y="94">参数库约定、验收与验证记录</text>
+    <line class="line" x1="0" y1="110" x2="780" y2="110"/>
+    <text class="path" x="0" y="141">tests/</text><text class="desc" x="290" y="141">Python、网页及短运行测试</text>
+    <line class="line" x1="0" y1="157" x2="780" y2="157"/>
+    <text class="path" x="0" y="188">scripts/</text><text class="desc" x="290" y="188">构建文档、检查与样例生成脚本</text>
+    <line class="line" x1="0" y1="204" x2="780" y2="204"/>
+    <text class="path" x="0" y="235">examples/</text><text class="desc" x="290" y="235">可运行例子、DXF/图片、参考数据</text>
+    <line class="line" x1="0" y1="251" x2="780" y2="251"/>
+    <text class="path" x="0" y="282">user_projects/</text><text class="desc" x="290" y="282">用户自定义控制方程示例</text>
+  </g>
+
+  <rect x="912" y="152" width="840" height="410" rx="22" fill="#ffffff" stroke="#cbdfe9" stroke-width="2"/>
+  <rect x="912" y="152" width="840" height="66" rx="22" fill="#f0ecfb"/>
+  <rect x="912" y="193" width="840" height="25" fill="#f0ecfb"/>
+  <text class="group-title" x="942" y="197">② 文档与接手</text>
+  <g transform="translate(942 258)">
+    <text class="path" x="0" y="0">docs/*.rst</text><text class="desc" x="290" y="0">网站正文源文件</text>
+    <line class="line" x1="0" y1="16" x2="780" y2="16"/>
+    <text class="path" x="0" y="47">docs/_ext/</text><text class="desc" x="290" y="47">配置器等 Sphinx 页面生成逻辑</text>
+    <line class="line" x1="0" y1="63" x2="780" y2="63"/>
+    <text class="path" x="0" y="94">docs/_static/</text><text class="desc" x="290" y="94">页面 JS/CSS、离线第三方资源</text>
+    <line class="line" x1="0" y1="110" x2="780" y2="110"/>
+    <text class="path" x="0" y="141">docs/manuals/</text><text class="desc" x="290" y="141">双说明书源内容与离线 HTML</text>
+    <line class="line" x1="0" y1="157" x2="780" y2="157"/>
+    <text class="path muted" x="0" y="188">docs/_build/</text><text class="desc muted" x="290" y="188">网站构建结果，可重新生成</text>
+    <line class="line" x1="0" y1="204" x2="780" y2="204"/>
+    <text class="path" x="0" y="235">README.md</text><text class="desc" x="290" y="235">项目入口、安装与快速使用</text>
+    <line class="line" x1="0" y1="251" x2="780" y2="251"/>
+    <text class="path path-small" x="0" y="282">OpenPINN_AI_HANDOFF.html</text><text class="desc" x="290" y="282">新电脑或新 AI 的接手指南</text>
+  </g>
+
+  <rect x="48" y="594" width="840" height="382" rx="22" fill="#ffffff" stroke="#cbdfe9" stroke-width="2"/>
+  <rect x="48" y="594" width="840" height="66" rx="22" fill="#e9f5ed"/>
+  <rect x="48" y="635" width="840" height="25" fill="#e9f5ed"/>
+  <text class="group-title" x="78" y="639">③ 运行结果与构建产物</text>
+  <g transform="translate(78 700)">
+    <text class="path" x="0" y="0">runs/</text><text class="desc" x="290" y="0">日常训练输出、检查点与图</text>
+    <line class="line" x1="0" y1="16" x2="780" y2="16"/>
+    <text class="path" x="0" y="47">examples/runs/</text><text class="desc" x="290" y="47">示例运行产生的数据</text>
+    <line class="line" x1="0" y1="63" x2="780" y2="63"/>
+    <text class="path" x="0" y="94">results/</text><text class="desc" x="290" y="94">正式验证结果，提交前逐项挑选</text>
+    <line class="line" x1="0" y1="110" x2="780" y2="110"/>
+    <text class="path muted" x="0" y="141">build/ · dist/</text><text class="desc muted" x="290" y="141">Python 构建物与历史发布包</text>
+    <line class="line" x1="0" y1="157" x2="780" y2="157"/>
+    <text class="path muted" x="0" y="188">node_modules/</text><text class="desc muted" x="290" y="188">本机安装的 JS 测试依赖</text>
+    <line class="line" x1="0" y1="204" x2="780" y2="204"/>
+    <text class="path muted" x="0" y="235">.*cache/ · .DS_Store</text><text class="desc muted" x="290" y="235">测试缓存与 macOS 系统文件</text>
+  </g>
+
+  <rect x="912" y="594" width="840" height="382" rx="22" fill="#ffffff" stroke="#cbdfe9" stroke-width="2"/>
+  <rect x="912" y="594" width="840" height="66" rx="22" fill="#fff2dc"/>
+  <rect x="912" y="635" width="840" height="25" fill="#fff2dc"/>
+  <text class="group-title" x="942" y="639">④ 根目录配置与声明</text>
+  <g transform="translate(942 700)">
+    <text class="path" x="0" y="0">pyproject.toml</text><text class="desc" x="290" y="0">Python 包、依赖与命令入口</text>
+    <line class="line" x1="0" y1="16" x2="780" y2="16"/>
+    <text class="path" x="0" y="47">package*.json</text><text class="desc" x="290" y="47">JS 测试依赖与锁定版本</text>
+    <line class="line" x1="0" y1="63" x2="780" y2="63"/>
+    <text class="path" x="0" y="94">.gitignore</text><text class="desc" x="290" y="94">Git 排除本地生成文件的规则</text>
+    <line class="line" x1="0" y1="110" x2="780" y2="110"/>
+    <text class="path" x="0" y="141">.readthedocs.yaml</text><text class="desc" x="290" y="141">在线文档构建设置</text>
+    <line class="line" x1="0" y1="157" x2="780" y2="157"/>
+    <text class="path path-small" x="0" y="188">THIRD_PARTY_NOTICES.md</text><text class="desc" x="290" y="188">内置第三方资源与许可说明</text>
+    <line class="line" x1="0" y1="204" x2="780" y2="204"/>
+    <text class="path" x="0" y="235">LICENSE_STATUS.md</text><text class="desc" x="290" y="235">当前项目许可证状态记录</text>
+  </g>
+
+  <rect x="48" y="1008" width="1704" height="210" rx="22" fill="#ffffff" stroke="#cbdfe9" stroke-width="2"/>
+  <rect x="48" y="1008" width="1704" height="60" rx="22" fill="#edf2f5"/>
+  <rect x="48" y="1045" width="1704" height="23" fill="#edf2f5"/>
+  <text class="group-title" x="78" y="1050">⑤ 历史记录文件</text>
+  <text class="path" x="78" y="1115">CHANGELOG.md</text><text class="desc" x="377" y="1115">功能变更</text>
+  <text class="path muted" x="700" y="1115">LICENSE_STATUS.md</text><text class="desc" x="1020" y="1115">许可边界，仍保留</text>
+  <text class="path muted" x="78" y="1167">runs/ · results/</text><text class="desc" x="377" y="1167">仅保留 README，不入库训练产物</text>
+
+  <text class="subtitle" x="60" y="1265">灰色路径多为生成物或历史文件；运行结果仍可能是重要研究数据，整理时先备份。</text>
+</svg>

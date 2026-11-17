@@ -1,0 +1,7 @@
+ring,x,y
+outer,-2,-1.5
+outer,2,-1.5
+outer,2,-0.25
+outer,0.5,-0.25
+outer,0.5,1.5
+outer,-2,1.5

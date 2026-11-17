@@ -1,0 +1,88 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPINN 0.2.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "配置器教程"
+msgstr "Configurator tutorial"
+
+msgid "这页用同一个 :doc:`method_configurator` 走完 PINN 与算子两条路径。配置器在浏览器中 设计问题并生成 Python；它不会训练、不会读取所填路径的文件，也不会上传 CSV。 下载 ``.py`` 后，训练和产物写入都发生在本地 Python 环境。"
+msgstr "This page walks through both the PINN and Operator paths in the same :doc:`method_configurator`. The configurator designs the problem and generates Python in the browser; it does not train, read files from entered paths, or upload CSV data. After downloading the ``.py`` file, training and artifact creation happen in your local Python environment."
+
+msgid "开始前"
+msgstr "Before you start"
+
+msgid "按 :doc:`install` 在仓库根目录安装 ``python -m pip install -e \".[test,docs]\"``。"
+msgstr "Follow :doc:`install` and run ``python -m pip install -e \".[test,docs]\"`` from the repository root."
+
+msgid "打开 :doc:`method_configurator`。先选 solution path，再从上到下完成问题与训练设置。"
+msgstr "Open :doc:`method_configurator`. Select a solution path, then complete the problem and training settings from top to bottom."
+
+msgid "页面预览用于核对几何、PDE 和边界语义；最终以下载脚本中的对象和参数为准。"
+msgstr "Use the preview to verify geometry, PDE, and boundary semantics; the objects and parameters in the downloaded script are authoritative."
+
+msgid "PINN：几何 → PDE → 边界 → 方法"
+msgstr "PINN: geometry → PDE → boundaries → method"
+
+msgid "选择 **PINN** 路径。选一维区间或二维几何；二维可使用矩形、圆孔、图片/DXF 识别后的轮廓等已有入口。"
+msgstr "Select the **PINN** path. Choose a 1D interval or 2D geometry; 2D options include rectangles, circular holes, and contours recognized from images or DXF files."
+
+msgid "在控制方程设计器选择模板或自由组合项，核对 PDE 公式和变量维度。"
+msgstr "Choose a template or compose terms in the governing-equation designer, then verify the PDE formula and variable dimensions."
+
+msgid "逐侧设置 Dirichlet、Neumann 或 Robin 条件；预览中的边名、方向和数值应与表单一致。"
+msgstr "Set Dirichlet, Neumann, or Robin conditions on each side; names, directions, and values in the preview should match the form."
+
+msgid "选择方法、训练步数、采样数和网络参数。短步数只适合链路检查。"
+msgstr "Choose the method, training steps, sample counts, and network parameters. A short run is only suitable for a workflow check."
+
+msgid "点击“下载 .py”，在仓库根目录执行 ``python 下载的文件.py``。"
+msgstr "Click “Download .py” and run ``python downloaded_file.py`` from the repository root."
+
+msgid "PINN 配置器中几何、PDE 和逐边边界预览示意"
+msgstr "Geometry, PDE, and per-edge boundary preview in the PINN configurator"
+
+msgid "PINN 路径示意：先核对几何与边编号，再核对 PDE，最后检查逐边条件。"
+msgstr "PINN path: verify geometry and edge numbers, then the PDE, and finally each edge condition."
+
+msgid "脚本运行后会打印结果目录。常见产物包括 ``metrics.json``、``history.csv``、 ``predictions.npz``、``loss.svg`` 和 ``result.svg``；具体解释见 :doc:`user_guide_results`。完整的瞬态与二维 Poisson 案例见 :doc:`code_tutorials` 中的 Burgers 与 PINN 2D Poisson notebooks。"
+msgstr "The script prints its result directory. Common artifacts include ``metrics.json``, ``history.csv``, ``predictions.npz``, ``loss.svg``, and ``result.svg``; see :doc:`user_guide_results` for details. Complete transient and 2D Poisson examples are the Burgers and PINN 2D Poisson notebooks in :doc:`code_tutorials`."
+
+msgid "Operator：模型 × training_mode"
+msgstr "Operator: model × training_mode"
+
+msgid "选择 **Operator** 路径，再选模型 DeepONet 或 FNO，以及 ``data_only``、 ``physics_only`` 或 ``hybrid``。不要把已弃用的 PINO shim 当作第三个模型。"
+msgstr "Select the **Operator** path, then choose DeepONet or FNO and ``data_only``, ``physics_only``, or ``hybrid``. Do not treat the deprecated PINO shim as a third model."
+
+msgid "使用同页问题设计器定义自定义一维/二维 PDE 与边界。DeepONet 走坐标自动微分， FNO 在规则网格上使用网格导数。"
+msgstr "Use the problem designer on the same page to define a custom 1D/2D PDE and boundaries. DeepONet uses coordinate autodiff; FNO uses grid derivatives on a regular grid."
+
+msgid "根据模式配置数据："
+msgstr "Configure data according to the mode:"
+
+msgid "**训练观测 CSV** 只为优化提供监督项。``data_only`` 与 ``hybrid`` 必填； ``physics_only`` 隐藏该入口，也不会静默借用参考数据。"
+msgstr "The **training-observation CSV** supplies only the supervised optimization term. It is required for ``data_only`` and ``hybrid``; ``physics_only`` hides it and never silently borrows reference data."
+
+msgid "**训后参考 CSV** 只用于训练后的指标比较，三种模式都可选。"
+msgstr "The **post-training reference CSV** is used only for metric comparison after training and is optional in all three modes."
+
+msgid "两套开关、路径、列映射和尺度完全独立。页面只把本地路径写入脚本，绝不上传文件。"
+msgstr "Their switches, paths, column mappings, and scales are independent. The page only writes local paths into the script and never uploads files."
+
+msgid "下载 ``.py`` 并在仓库根目录运行。非法的模型、模式、PDE 或数据组合会在复制/下载前 明确报错，不会换成另一条路径。"
+msgstr "Download the ``.py`` file and run it from the repository root. Invalid model, mode, PDE, or data combinations produce a clear error before copy/download and never switch to another path."
+
+msgid "Operator 配置器中模型训练模式、二维 Poisson PDE 边界和 CSV 角色示意"
+msgstr "Model training mode, 2D Poisson PDE boundaries, and CSV roles in the Operator configurator"
+
+msgid "Operator 路径示意：模型与模式决定训练目标，PDE/BC 定义物理，观测与参考数据不混用。"
+msgstr "Operator path: the model and mode determine the training objective, PDE/BC define the physics, and observation and reference data remain separate."
+
+msgid "与代码教程对应"
+msgstr "Relation to the code tutorials"
+
+msgid ":doc:`code_tutorials` 的主算子案例使用 **FNO × physics_only** 训练二维 Poisson，因此 不提供观测 CSV；notebook 中的解析解仅做预测对照。若切换到 ``hybrid``，必须另行提供 训练观测，参考 CSV 仍保持可选。配置器仍是下载独立 ``.py`` 的入口，notebook 则适合 逐单元查看物理设置、损失和预测图。"
+msgstr "The primary Operator example in :doc:`code_tutorials` trains 2D Poisson with **FNO × physics_only**, so it supplies no observation CSV; the notebook's analytic solution is only a prediction reference. Switching to ``hybrid`` requires separate training observations, while the reference CSV remains optional. Use the configurator to download a standalone ``.py`` file and the notebook to inspect physics settings, loss, and prediction plots cell by cell."

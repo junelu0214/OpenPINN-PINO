@@ -1,0 +1,19 @@
+schema_version: 2
+experiment:
+  name: tunnel_model1_baseline
+  seed: 0
+  device: cpu
+
+problem:
+  name: tunnel_model1
+
+method:
+  name: baseline
+  variant: plain_pinn
+
+training:
+  # Word 报告模型一使用 20,000 个 Adam epoch；首次检查可用命令行 --steps 5。
+  steps: 20000
+
+output:
+  root: runs

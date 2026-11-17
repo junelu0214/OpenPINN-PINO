@@ -1,0 +1,14 @@
+problem:
+  name: tunnel_consolidation_model1
+  parameters:
+    width_m: 40.0
+    height_m: 40.0
+    duration_years: 40.0
+    tunnel_radius_m: 4.0
+    tunnel_centers_m:
+      - [10.0, 20.0]
+      - [30.0, 20.0]
+    # 下列三项在 Word 的“模型一”小节未单独明确给出，是可修改默认假设。
+    initial_pressure_kpa: 20.0
+    consolidation_x_m2_per_year: 0.30
+    consolidation_y_m2_per_year: 0.60

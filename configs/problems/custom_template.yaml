@@ -1,0 +1,3 @@
+problem:
+  # 相对于调用这个 YAML 的位置，或写可导入的 module:function。
+  factory: ../../user_projects/custom_equation/problem.py:build_problem

@@ -1,0 +1,4 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "开始贡献：从反馈到开发计划"
+msgstr "Start contributing: from feedback to a development plan"

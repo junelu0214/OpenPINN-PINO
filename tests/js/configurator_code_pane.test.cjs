@@ -1,0 +1,90 @@
+/* DOM regression; native dialog layout/focus trapping requires browser QA. */
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {JSDOM} = require('jsdom');
+const root = path.resolve(__dirname, '../..');
+async function main() {
+  const dom = new JSDOM(fs.readFileSync(path.join(root, 'docs/_build/html/method_configurator.html'), 'utf8'), {runScripts:'outside-only'});
+  const w = dom.window, d = w.document;
+  await new Promise(resolve => w.addEventListener('DOMContentLoaded', resolve, {once:true}));
+  w.HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', ''); };
+  w.HTMLDialogElement.prototype.close = function () { this.removeAttribute('open'); this.dispatchEvent(new w.Event('close')); };
+  let blob, download, clipboard;
+  w.URL.createObjectURL = value => { blob = value; return 'blob:code-test'; };
+  w.URL.revokeObjectURL = () => {};
+  w.HTMLAnchorElement.prototype.click = function () { download = this.download; };
+  Object.defineProperty(w.navigator, 'clipboard', {value:{writeText:async text => { clipboard = text; }}});
+  d.execCommand = command => {
+    assert.equal(command, 'copy');
+    const textarea = d.querySelector('[data-role="code-pane"] textarea');
+    assert(textarea);
+    clipboard = textarea.value;
+    return true;
+  };
+  for (const file of ['polygon_image_trace.js', 'dxf_geometry_import.js', 'physics_editor.js', 'method_configurator.js']) {
+    w.eval(fs.readFileSync(path.join(root, 'docs/_static', file), 'utf8'));
+  }
+  d.dispatchEvent(new w.Event('DOMContentLoaded'));
+  const node = role => d.querySelector('[data-role="' + role + '"]');
+  const pane = node('code-pane'), code = node('code'), dialog = node('code-dialog');
+  const layout = pane.parentElement;
+  const set = (role, value, event='input') => { node(role).value = value; node(role).dispatchEvent(new w.Event(event, {bubbles:true})); };
+  assert(layout.classList.contains('configurator-layout'));
+  assert(!pane.closest('.configurator-output-pane'));
+  assert(!node('download-code').disabled);
+  const css = fs.readFileSync(path.join(root, 'docs/_static/method_configurator.css'), 'utf8');
+  assert.match(css, /\.configurator-code-pane\s*\{\s*grid-column: 1 \/ -1/);
+  assert.match(css, /white-space: pre;/);
+  assert.equal(d.querySelectorAll('[data-role*="wrap"]').length, 0);
+  node('expand-code').click();
+  assert(dialog.open);
+  assert.equal(pane.parentElement, dialog);
+  assert(d.body.classList.contains('configurator-code-modal-open'));
+  const before = code.textContent;
+  set('steps', 17);
+  assert.notEqual(code.textContent, before);
+  assert.equal(node('code'), code);
+  node('download-code').click();
+  assert.match(download, /\.py$/);
+  assert.equal(download, 'my_new_equation.py');
+  assert(node('code-action-status').textContent.includes('python examples/my_new_equation.py'));
+  assert(node('code-action-status').textContent.includes('.\\.venv\\Scripts\\python.exe examples\\my_new_equation.py'));
+  const downloaded = await new Promise((resolve, reject) => {
+    const reader = new w.FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject; reader.readAsText(blob);
+  });
+  assert.equal(downloaded, code.textContent);
+  node('copy').click();
+  await Promise.resolve();
+  assert.equal(clipboard, code.textContent);
+  set('steps', 0);
+  assert(!node('copy').disabled);
+  assert(!node('download-code').disabled);
+  assert.match(code.textContent, /NotImplementedError/);
+  const oldBlob = blob;
+  node('download-code').click();
+  assert.notEqual(blob, oldBlob);
+  set('steps', 18);
+  assert(!node('download-code').disabled);
+  node('expand-code').click();
+  assert(!dialog.open);
+  assert.equal(pane.parentElement, layout);
+  assert(!d.body.classList.contains('configurator-code-modal-open'));
+  assert.equal(d.activeElement, node('expand-code'));
+  set('custom-name', 'custom_trial');
+  node('download-code').click();
+  assert.equal(download, 'custom_trial.py');
+  assert(node('code-action-status').textContent.includes('python examples/custom_trial.py'));
+  assert(node('code-action-status').textContent.includes('examples\\custom_trial.py'));
+  node('expand-code').click();
+  dialog.close(); // same close-event path as a native Escape dismissal
+  assert.equal(pane.parentElement, layout);
+  assert.equal(d.querySelectorAll('[data-role="code"]').length, 1);
+  dialog.showModal = undefined;
+  node('expand-code').click();
+  assert.equal(pane.parentElement, layout);
+  assert.match(node('code-action-status').textContent, /不支持/);
+  dom.window.close();
+  console.log('CODE_PANE_OK: full-row structure, modal restore, live updates, exact download/copy, honest incomplete export, fallback');
+}
+main().catch(error => { console.error(error); process.exitCode = 1; });

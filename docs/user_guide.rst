@@ -1,0 +1,30 @@
+使用者说明书
+============
+
+先看下面的总流程图：从定义问题开始，直到生成代码、运行训练和验证结果。
+沿箭头阅读，点击方框查看具体操作；详细章节仍在左侧目录中。
+
+.. openpinn-manual:: user
+
+.. note::
+
+   核心流程：**自定义几何 → 控制方程 → 边界条件 → 生成训练代码 → 运行与验证**。
+   :doc:`user_guide_modeling` 提供一维、二维多边形和双圆孔三个跟做案例；
+   独立的 :doc:`plate_with_hole_demo` 教程保留线弹性圆孔板、Kirsch 对照和短跑，
+   但不作为配置器 solution path。
+   需要图片或 DXF 导入时，转到 :doc:`user_guide_geometry`，再返回设置 PDE 与边界。
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   user_guide_start
+   user_guide_modeling
+   user_guide_geometry
+   user_guide_training
+   user_guide_results
+   user_guide_help
+
+离线保存或打印时可使用 `完整单文件版 <user_manual.html>`_。
+参与代码维护请阅读 :doc:`developer_guide`。
+

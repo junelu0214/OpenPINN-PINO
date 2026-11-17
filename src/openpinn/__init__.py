@@ -1,0 +1,400 @@
+"""OpenPINN's modular, library-first public API.
+
+The short API selects a problem and one or more registered method names while
+the component API remains available for research extensions. Unsupported,
+incompatible or conflicting methods fail explicitly rather than silently
+becoming a baseline.
+
+Typical usage::
+
+    import openpinn as op
+
+    result = op.solve("poisson", method="fourier", steps=10)
+
+    combined = op.solve(
+        "poisson",
+        methods=[op.method("fourier"), op.method("adaptive_weights")],
+        steps=10,
+    )
+"""
+
+from .artifacts import ArtifactWriter, write_diagnostic_run_artifact
+from .capabilities import (
+    CapabilityRegistry,
+    DerivativeCapability,
+    ExecutionPlan,
+    ModelCapability,
+    default_capability_registry,
+    resolve_execution_plan,
+)
+from .adapters import (
+    RUNNABLE_GENERATOR_ID,
+    TrainingCapability,
+    build_registered_problem,
+    match_training_backend,
+    run_registered_pinn,
+)
+from .api import build_config, load_problem_factory, result_summary, solve, solve_config
+from .autodiff import AutodiffDerivative, grad, hessian
+from .benchmarks import (
+    BurgersColeHopfReference,
+    make_burgers_problem,
+    make_coupled_manufactured_problem,
+    make_piecewise_poisson_problem,
+    make_poisson_problem,
+    make_tunnel_consolidation_model1_problem,
+)
+from .conditions import DirichletBC, InitialCondition, NeumannBC, RobinBC
+from .config import load_config
+from .constraints import HardConstraint, IdentityOutput
+from .experiment import Experiment, ExperimentResult, default_component_registry
+from .engine import EngineRunResult, problem_from_compiled_expressions, run_pinn
+from .expressions import (
+    CompiledProblemExpressions,
+    ExpressionCompileError,
+    compile_problem_expressions,
+)
+from .features import FourierFeatures, IdentityFeature
+from .formulations import FormulationProtocol, InterfaceStrongFormulation, StrongFormulation
+from .geometry import (
+    ClosedSpline,
+    Disk,
+    Ellipse,
+    Interval,
+    Polygon,
+    RectangleWithCircularHoles,
+    RoundedRectangle,
+    SpaceTimeDomain,
+)
+from .losses import (
+    AdaptiveLossComposer,
+    LossComposer,
+    MagnitudePowerLossComposer,
+    PointwiseAdaptiveLossComposer,
+    ReLoBRaLoLossComposer,
+    UncertaintyLossComposer,
+)
+from .metrics import (
+    max_absolute_error,
+    mean_absolute_error,
+    r2_score,
+    relative_l2_error,
+    rmse,
+)
+from .models import (
+    AdaptiveTanh,
+    DomainDecompositionPINN,
+    MLP,
+    ModifiedMLP,
+    PINNModel,
+    freeze_all_but_last_linear_layers,
+)
+from .optimizers import (
+    Adam,
+    AdamAdapter,
+    AdamW,
+    AdamWAdapter,
+    LBFGS,
+    LBFGSAdapter,
+    OptimizerAdapter,
+    StagedOptimizerAdapter,
+    make_optimizer,
+)
+from .problems import PDEProblem
+from .physics import (
+    load_physics_catalog,
+    make_physics_residual,
+    validate_physics_catalog,
+    validate_physics_spec,
+)
+from .reference_data import (
+    OperatorObservation,
+    evaluate_reference_csv,
+    load_operator_observation_csv,
+)
+from .results import UnifiedRunResult, as_unified_result
+from .spec import (
+    ProblemSpec as ProblemYAMLSpec,
+    MethodSpec as MethodYAMLSpec,
+    load_problem_spec,
+    load_method_spec,
+    validate_problem_spec as validate_problem_yaml,
+    validate_method_spec as validate_method_yaml,
+)
+from .codegen import build_problem, build_solve_kwargs, from_specs, TractionBC
+from .kirsch import (
+    kirsch_stress_polar,
+    kirsch_stress_cartesian,
+    kirsch_displacement,
+    kirsch_scf,
+    kirsch_hoop_stress_at_hole,
+    compare_displacement_l2,
+)
+from .inverse import (
+    ConsolidationFamilyOperator,
+    ConsolidationOperatorFamilyResult,
+    ConsolidationOperatorInverseResult,
+    DarcyInversePINN,
+    DarcyPINNInverseResult,
+    consolidation_pressure,
+    darcy_pressure,
+    inverse_consolidation_operator,
+    inverse_darcy_pinn,
+    load_consolidation_observations_csv,
+    load_inverse_observations_csv,
+    train_consolidation_family_operator,
+)
+from .registry import (
+    PUBLIC_EXTENSION_KINDS,
+    ComponentKind,
+    ComponentRegistry,
+    component_kinds,
+)
+from .static_checks import (
+    assert_no_pde_residual_in_forward,
+    find_pde_residuals_in_forward,
+)
+from .method_registry import (
+    MethodCompatibility,
+    MethodRegistry,
+    MethodSpec,
+    ProblemCompatibilityReport,
+    check_method_compatibility,
+    default_method_registry,
+    list_method_variants,
+    list_methods,
+)
+from .method_ecosystem import METHOD_ECOSYSTEM_AXES, method_ecosystem_payload
+from .method_options import (
+    MethodSelection,
+    method,
+    method_parameter_schema,
+)
+from .operator_protocol import (
+    CoordinateOperator,
+    CoordinateModel,
+    GridDerivative,
+    GridOperator,
+    OperatorHookSpec,
+    OperatorRegistry,
+    attach_operator_hooks,
+    default_operator_registry,
+    list_operator_hooks,
+    list_selectable_operators,
+    operator_hook_records,
+)
+from .operators import (
+    DeepONet,
+    DeepONetConfig,
+    CoordinateProblemOnGrid,
+    FNO,
+    FNOConfig,
+    FiniteDifferenceGridDerivative,
+    GridPDEProblem,
+    OperatorTrainResult,
+    PINO,
+    PINOConfig,
+    PeriodicPoisson1D,
+    SpectralConv,
+    SpectralGridDerivative,
+    TRAINING_MODES,
+    UniformGrid,
+    antiderivative_batch,
+    build_deeponet,
+    build_fno,
+    build_operator_config,
+    build_pino,
+    fourier_derivative_batch,
+    evaluate_operator_reference_csv,
+    make_grid_derivative,
+    poisson_operator_batch,
+    train_pino,
+    train_operator,
+    train_operator_problem,
+)
+from .methods import MethodVariantSpec
+from .sampling import (
+    AdaptiveMovementSampler,
+    ImportanceSamplingSampler,
+    ResidualAdaptiveSampler,
+    SampleBatch,
+    SamplerProtocol,
+    TimeWindowSampler,
+    UniformSampler,
+)
+from .training import Trainer, TrainingHistory
+
+__all__ = [
+    "evaluate_reference_csv",
+    "Adam",
+    "AdamAdapter",
+    "AdamW",
+    "AdamWAdapter",
+    "AdaptiveTanh",
+    "AdaptiveLossComposer",
+    "AutodiffDerivative",
+    "assert_no_pde_residual_in_forward",
+    "as_unified_result",
+    "AdaptiveMovementSampler",
+    "ArtifactWriter",
+    "write_diagnostic_run_artifact",
+    "RUNNABLE_GENERATOR_ID",
+    "TrainingCapability",
+    "BurgersColeHopfReference",
+    "CapabilityRegistry",
+    "ComponentKind",
+    "DerivativeCapability",
+    "ComponentRegistry",
+    "CompiledProblemExpressions",
+    "component_kinds",
+    "PUBLIC_EXTENSION_KINDS",
+    "ClosedSpline",
+    "DirichletBC",
+    "Disk",
+    "Ellipse",
+    "DomainDecompositionPINN",
+    "Experiment",
+    "ExperimentResult",
+    "ExecutionPlan",
+    "EngineRunResult",
+    "ExpressionCompileError",
+    "FourierFeatures",
+    "FormulationProtocol",
+    "HardConstraint",
+    "IdentityFeature",
+    "IdentityOutput",
+    "ImportanceSamplingSampler",
+    "InitialCondition",
+    "InterfaceStrongFormulation",
+    "Interval",
+    "LBFGS",
+    "LBFGSAdapter",
+    "LossComposer",
+    "MagnitudePowerLossComposer",
+    "MLP",
+    "MethodRegistry",
+    "MethodCompatibility",
+    "MethodSelection",
+    "ModelCapability",
+    "MethodSpec",
+    "MethodVariantSpec",
+    "CoordinateOperator",
+    "CoordinateModel",
+    "GridDerivative",
+    "GridOperator",
+    "OperatorHookSpec",
+    "OperatorRegistry",
+    "attach_operator_hooks",
+    "default_operator_registry",
+    "list_operator_hooks",
+    "list_selectable_operators",
+    "operator_hook_records",
+    "DeepONet",
+    "DeepONetConfig",
+    "FNO",
+    "FNOConfig",
+    "FiniteDifferenceGridDerivative",
+    "GridPDEProblem",
+    "OperatorTrainResult",
+    "PINO",
+    "PINOConfig",
+    "PeriodicPoisson1D",
+    "SpectralConv",
+    "SpectralGridDerivative",
+    "TRAINING_MODES",
+    "UniformGrid",
+    "antiderivative_batch",
+    "build_deeponet",
+    "build_registered_problem",
+    "build_fno",
+    "build_operator_config",
+    "build_pino",
+    "fourier_derivative_batch",
+    "make_grid_derivative",
+    "poisson_operator_batch",
+    "train_pino",
+    "train_operator",
+    "ProblemCompatibilityReport",
+    "ModifiedMLP",
+    "NeumannBC",
+    "OptimizerAdapter",
+    "PDEProblem",
+    "PINNModel",
+    "PointwiseAdaptiveLossComposer",
+    "Polygon",
+    "ResidualAdaptiveSampler",
+    "ReLoBRaLoLossComposer",
+    "RectangleWithCircularHoles",
+    "RoundedRectangle",
+    "RobinBC",
+    "SampleBatch",
+    "SamplerProtocol",
+    "SpaceTimeDomain",
+    "StrongFormulation",
+    "StagedOptimizerAdapter",
+    "Trainer",
+    "TrainingHistory",
+    "TimeWindowSampler",
+    "UniformSampler",
+    "UncertaintyLossComposer",
+    "UnifiedRunResult",
+    "find_pde_residuals_in_forward",
+    "grad",
+    "hessian",
+    "problem_from_compiled_expressions",
+    "run_pinn",
+    "run_registered_pinn",
+    "compile_problem_expressions",
+    "default_component_registry",
+    "default_capability_registry",
+    "default_method_registry",
+    "METHOD_ECOSYSTEM_AXES",
+    "method_ecosystem_payload",
+    "freeze_all_but_last_linear_layers",
+    "load_config",
+    "load_problem_factory",
+    "load_physics_catalog",
+    "make_physics_residual",
+    "validate_physics_catalog",
+    "validate_physics_spec",
+    "list_methods",
+    "list_method_variants",
+    "method",
+    "method_parameter_schema",
+    "match_training_backend",
+    "make_burgers_problem",
+    "make_coupled_manufactured_problem",
+    "make_piecewise_poisson_problem",
+    "make_optimizer",
+    "make_poisson_problem",
+    "make_tunnel_consolidation_model1_problem",
+    "max_absolute_error",
+    "mean_absolute_error",
+    "r2_score",
+    "relative_l2_error",
+    "rmse",
+    "ProblemYAMLSpec",
+    "MethodYAMLSpec",
+    "load_problem_spec",
+    "load_method_spec",
+    "validate_problem_yaml",
+    "validate_method_yaml",
+    "build_problem",
+    "build_solve_kwargs",
+    "from_specs",
+    "TractionBC",
+    "kirsch_stress_polar",
+    "kirsch_stress_cartesian",
+    "kirsch_displacement",
+    "kirsch_scf",
+    "kirsch_hoop_stress_at_hole",
+    "compare_displacement_l2",
+    "build_config",
+    "check_method_compatibility",
+    "result_summary",
+    "resolve_execution_plan",
+    "solve",
+    "solve_config",
+]
+
+__version__ = "0.2.0"

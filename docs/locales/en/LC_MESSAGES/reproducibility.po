@@ -1,0 +1,4 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "三随机种子复现"
+msgstr "Three-seed reproducibility"

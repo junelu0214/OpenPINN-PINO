@@ -1,0 +1,49 @@
+schema_version: 1
+experiment:
+  name: poisson_1d_smoke
+  description: Fast CPU integration check. It is not an accuracy benchmark.
+  seed: 7
+  device: cpu
+  dtype: float32
+
+problem:
+  name: poisson_1d
+  kind: static
+  domain:
+    x: [-1.0, 1.0]
+
+model:
+  input_dim: 1
+  output_dim: 1
+  hidden_layers: [16, 16]
+  activation: tanh
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 24
+  boundary: 2
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 4
+  log_every: 1
+
+evaluation:
+  points: 17
+
+output:
+  root: runs/smoke/poisson
+  save_checkpoint: true

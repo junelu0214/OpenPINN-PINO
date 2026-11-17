@@ -1,0 +1,61 @@
+schema_version: 1
+experiment:
+  name: coupled_elliptic_manufactured_1d_smoke
+  description: Two-field CPU integration and extensibility check. It is not an accuracy benchmark.
+  seed: 41
+  device: cpu
+  dtype: float64
+
+problem:
+  name: coupled_elliptic_manufactured_1d
+  kind: coupled_static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    coupling_strength: 1.0
+
+model:
+  input_dim: 1
+  output_dim: 2
+  hidden_layers: [16, 16]
+  activation: tanh
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 24
+  boundary: 4
+
+loss:
+  formulation: strong
+  weights:
+    equation_u: 1.0
+    equation_v: 1.0
+    coupling: 1.0
+    boundary: 10.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 3
+  log_every: 1
+
+evaluation:
+  points: 33
+  metrics:
+    - relative_l2_u
+    - relative_l2_v
+    - residual_equation_u_rmse
+    - residual_equation_v_rmse
+    - residual_coupling_rmse
+    - boundary_u_rmse
+    - boundary_v_rmse
+
+output:
+  root: runs/smoke/coupled_manufactured
+  save_checkpoint: true

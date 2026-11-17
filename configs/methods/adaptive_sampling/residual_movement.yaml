@@ -1,0 +1,9 @@
+method:
+  name: adaptive_sampling
+  variant: residual_movement
+  options:
+    candidate_pool: 512
+    movable_fraction: 0.5
+    power: 1.0
+    epsilon: 0.000000000001
+    resample_every: 50

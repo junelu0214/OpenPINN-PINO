@@ -1,0 +1,52 @@
+{
+  "initial_data_loss": -0.0,
+  "final_data_loss": 0.0,
+  "initial_physics_loss": 91.03301239013672,
+  "final_physics_loss": 0.05051596462726593,
+  "elapsed_sec": 721.7624182000291,
+  "stop_steps": 10000,
+  "seed": 0,
+  "device": "cuda",
+  "lr": 0.01,
+  "grid_size": 64,
+  "width": 32,
+  "n_layers": 3,
+  "n_modes": 12,
+  "post_train_relative_l2": 0.03891376405954361,
+  "target_post_train_relative_l2": 0.03,
+  "passed": false,
+  "chunk_logs": [
+    {
+      "steps": 2000,
+      "post_train_relative_l2": 0.04599841684103012,
+      "initial_physics_loss": 91.03301239013672,
+      "final_physics_loss": 0.01414277870208025
+    },
+    {
+      "steps": 4000,
+      "post_train_relative_l2": 0.061523742973804474,
+      "initial_physics_loss": 91.03301239013672,
+      "final_physics_loss": 0.044225115329027176
+    },
+    {
+      "steps": 6000,
+      "post_train_relative_l2": 0.5986244082450867,
+      "initial_physics_loss": 91.03301239013672,
+      "final_physics_loss": 0.47743943333625793
+    },
+    {
+      "steps": 8000,
+      "post_train_relative_l2": 0.07449442148208618,
+      "initial_physics_loss": 91.03301239013672,
+      "final_physics_loss": 0.057369913905858994
+    },
+    {
+      "steps": 10000,
+      "post_train_relative_l2": 0.03891376405954361,
+      "initial_physics_loss": 91.03301239013672,
+      "final_physics_loss": 0.05051596462726593
+    }
+  ],
+  "n_loss_points": 10000,
+  "output_dir": "maintainer-local-run"
+}

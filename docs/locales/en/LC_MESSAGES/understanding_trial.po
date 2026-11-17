@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPINN 0.2.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Understanding 网页试用"
+msgstr "Understanding Web Trial"
+
+msgid "在这里输入中文或英文的自然语言问题描述，并用你自己的 OpenAI-compatible API Key 直接请求所配置的模型。页面显示 ``ProblemSpec`` 草稿、缺失字段、追问、警告和 ``ready_for_validation``；请求不会经过 OpenPINN 服务器。"
+msgstr "Enter a natural-language problem description in Chinese or English and request the configured model directly with your own OpenAI-compatible API Key. The page shows the ``ProblemSpec`` draft, missing fields, questions, warnings, and ``ready_for_validation``; the request never passes through an OpenPINN server."
+
+msgid "这是静态文档中的问题理解预检，不提供“填入配置器”、生成或下载脚本，也不在浏览器 中训练。显示就绪表示当前草稿通过了与 M25 已知 ``ProblemSpec`` 子集对齐的本地结构 检查；任何下游代码生成仍必须在 Python 中调用现有 Agent A ``openpinn.agents.validate``。Agent A 失败时必须继续追问，不能进入 CodeBuilder。"
+msgstr "This is a Problem Understanding preflight in the static documentation. It does not offer fill-configurator, script-generation, or download actions, and it never trains in the browser. A ready result means that the draft passed a local structural check aligned with the known M25 ``ProblemSpec`` subset. Any downstream code generation must still call the existing Agent A ``openpinn.agents.validate`` in Python. If Agent A fails, the workflow must continue asking questions and must not enter CodeBuilder."
+
+msgid "LLM 可提取一般问题事实，但当前 Agent A 尚不接受的方程仍会保持未就绪。页面不选择 网络、采样、损失或优化器，不实现 Planning 或 Repair。 准备正式配置时请前往 :doc:`方法配置器 <method_configurator>`；完整架构与 Python API 见 :doc:`问题理解说明 <problem_understanding>`。"
+msgstr "The LLM can extract general problem facts, but equations not yet accepted by Agent A remain not ready. The page does not choose networks, sampling, losses, or optimizers and does not implement Planning or Repair. For formal configuration, continue to the :doc:`Method Configurator <method_configurator>`; see :doc:`Problem Understanding <problem_understanding>` for the full architecture and Python API."
+
+msgid "接口必须支持浏览器跨域请求和 OpenAI-compatible ``/chat/completions``。可填写通用 OpenAI-compatible 或国内兼容服务商提供的 base URL 与模型名；具体 URL、模型、配额和 CORS 策略以服务商文档为准。缺少 Key、接口不可达、超时、CORS 被拒绝或 JSON 不合法 时，页面会明确报错并保持未就绪，不会静默换用另一种结果。点击“清除 Key”会从当前 浏览器删除它。页面交付后，由用户使用自己的真实 Key 自行验收；CI 不使用真实 Key。"
+msgstr "The endpoint must support cross-origin browser requests and OpenAI-compatible ``/chat/completions``. You may enter a generic OpenAI-compatible endpoint or one from a compatible domestic provider; follow that provider's documentation for the exact URL, model, quota, and CORS policy. A missing Key, unreachable endpoint, timeout, denied CORS request, or invalid JSON produces a clear error and remains not ready; the page never silently substitutes another result. Clear Key removes it from the current browser. After delivery, the user performs acceptance with their own real Key; CI never uses a real Key."
+
+msgid "“填入配置器”只把问题草稿预填到**自定义 PDE/BC 编辑器**；包括线弹性在内都不会切换到 带孔板专用界面。显示就绪表示草稿对当前物理族已经自洽，不表示 Agent A 或代码生成已经 通过。配置器、YAML 和 CodeBuilder 仍须使用现有校验；失败时复制和下载保持禁用。页面 不生成脚本，也不在浏览器中训练。"
+msgstr "Apply to configurator prefills the problem draft only into the **custom PDE/BC editor**. Every family, including linear elasticity, stays out of the dedicated plate-with-hole UI. Ready means that the draft is consistent for its physics family; it does not mean that Agent A or code generation passed. The configurator, YAML, and CodeBuilder still use their existing validation, and copy/download stay disabled on failure. The page does not generate scripts or train in the browser."
+
+msgid "页面按已声明的物理族追问。热传导、泊松和其他已声明物理族使用各自或通用的问题侧完整性 检查，不会混入线弹性专用的 E、ν、``ux``、``uy``；物理族不清楚时只会询问是哪一种 物理，不会默认线弹性。 提示词允许把明显事实做合理延伸，并要求用 ``understanding.inferred`` 警告标出推断； 真正缺失的数值仍然要追问。页面不选择网络、采样、损失或优化器，不实现 Planning 或 Repair。"
+msgstr "Follow-up questions are scoped to the declared physics family. Heat, Poisson, and every other declared family use their specific or generic problem-side completeness checks without elasticity-only E, ν, ``ux``, or ``uy`` gaps. When the family is unknown, the page asks for the physics type instead of assuming elasticity. The prompt may extend obvious facts and must mark each inference with an ``understanding.inferred`` warning; truly missing values are still questions. The page does not select a network, sampler, loss, or optimizer and does not implement Planning or Repair."
+
+msgid "预填通过当前标签页的 ``sessionStorage`` 传递，键为 ``openpinn-understanding-configurator-v1``，配置器读取后立即删除。映射规则如下；只写入草稿 明确提供且能无损映射的值，不补造数值："
+msgstr "The prefill uses this tab's ``sessionStorage`` key ``openpinn-understanding-configurator-v1`` and the configurator deletes it immediately after reading. The mapping writes only explicitly declared values that can be represented without loss; it never invents numbers:"
+
+msgid "Understanding 草稿到自定义配置器"
+msgstr "Understanding draft to custom configurator"
+
+msgid "草稿字段"
+msgstr "Draft field"
+
+msgid "配置器字段"
+msgstr "Configurator field"
+
+msgid "``dim`` / ``kind`` / 时间依赖线索"
+msgstr "``dim`` / ``kind`` / time-dependence cues"
+
+msgid "自定义问题的空间维度与静态/动态上下文"
+msgstr "Custom problem dimension and static/dynamic context"
+
+msgid "``expression_source``、``equation`` 或 ``pde.expression``"
+msgstr "``expression_source``, ``equation``, or ``pde.expression``"
+
+msgid "公式与物理参数编辑器的 ``expression_source``"
+msgstr "``expression_source`` in the formula and physics-parameter editor"
+
+msgid "``parameters`` / ``constants`` / ``coefficients``"
+msgstr "``parameters`` / ``constants`` / ``coefficients``"
+
+msgid "仅含明确数值与单位的物理参数；缺单位时跳过并提示"
+msgstr "Physics parameters with explicit values and units; entries without units are skipped with a warning"
+
+msgid "``field`` / ``units``"
+msgstr "``field`` / ``units``"
+
+msgid "未知场、场单位、坐标与时间单位"
+msgstr "Unknown field, field unit, coordinate units, and time unit"
+
+msgid "``geometry`` 的区间、矩形外框或 ``bounds``"
+msgstr "Interval, rectangular outer boundary, or ``bounds`` in ``geometry``"
+
+msgid "自定义几何范围；孔洞保留提示，由用户在自定义几何中继续编辑"
+msgstr "Custom geometry bounds; holes remain as a warning for continued editing in custom geometry"
+
+msgid "可无损表示的标量 ``boundaries``"
+msgstr "Scalar ``boundaries`` that can be represented without loss"
+
+msgid "自定义 PDE/BC 的对应边界行"
+msgstr "Matching custom PDE/BC boundary rows"
+
+msgid "``initial_condition`` / ``initial_conditions``"
+msgstr "``initial_condition`` / ``initial_conditions``"
+
+msgid "动态上下文与可表示的标量常数初值；多分量初值保留提示并由用户核对"
+msgstr "Dynamic context and representable scalar constant initial values; multi-component initial conditions remain as a warning for user review"
+
+msgid "未就绪草稿可选择“仍填已有字段”；配置器会显示醒目警告，且不会强制开启复制或下载。 准备正式配置时请前往 :doc:`方法配置器 <method_configurator>`；完整架构与 Python API 见 :doc:`问题理解说明 <problem_understanding>`。"
+msgstr "For an incomplete draft, Apply available fields shows a prominent warning and does not force-enable copy or download. Continue to the :doc:`Method Configurator <method_configurator>` for formal configuration; see :doc:`Problem Understanding <problem_understanding>` for the architecture and Python API."
+
+msgid "预填通过当前标签页的 ``sessionStorage`` 传递，键为 ``openpinn-understanding-configurator-v1``，配置器读取后立即删除。映射规则如下；只写入草稿 明确提供且能无损映射的值。热传导和泊松方程可由结构化草稿补成编辑器合法公式；补入的 只是公式结构与标准单位，不补造物理数值："
+msgstr "Prefill uses this tab's ``sessionStorage`` key ``openpinn-understanding-configurator-v1`` and the configurator deletes it after reading. It maps explicit lossless values and can synthesize editor-valid heat and Poisson formulas from structured drafts. Synthesis supplies formula structure and standard units, never physical values:"
+
+msgid "先规范为仅含 ``dx``、``dy``、``dt`` 和显式 ``*`` 的 ASCII 公式；常见 ``Δ``/``∇²``、下标导数和 Unicode 运算符会被转换"
+msgstr "Normalize to an ASCII formula using only ``dx``, ``dy``, ``dt``, and explicit ``*``; common ``Δ``/``∇²`` notation, subscript derivatives, and Unicode operators are converted"
+
+msgid "保留明确数值；缺单位时使用无量纲并提示。热传导 ``alpha`` 默认单位为 ``m^2/s``，泊松源项 ``f`` 默认单位为 ``1/m^2``"
+msgstr "Keep explicit values; use a dimensionless unit with a warning when a unit is absent. Heat ``alpha`` defaults to ``m^2/s`` and Poisson source ``f`` defaults to ``1/m^2``"
+
+msgid "若模型没有返回合法公式，映射器会从热传导的扩散率或泊松的源项合成公式；仍无法合成时， 配置器保留原公式和参数并明确显示“仅完成部分预填”，不会把空公式当作成功。"
+msgstr "If the model returns no valid formula, the mapper synthesizes one from heat diffusivity or the Poisson source. If synthesis is still impossible, the configurator preserves the current formula and parameters and clearly reports a partial prefill instead of treating an empty formula as success."
+
+msgid "“填入配置器”只把问题草稿预填到**自定义 PDE/BC 编辑器**；包括线弹性在内都不会切换到 带孔板专用界面。显示就绪表示草稿对当前物理族已经自洽，不表示 Agent A 或代码生成已经 通过。配置器、YAML 和 CodeBuilder 仍须使用现有校验；失败时复制和下载保持禁用。页面 不生成脚本，也不在浏览器中训练。“推荐方法”使用独立的 Planning 接口、模型和 Key 请求 MethodSpec 草稿并做浏览器侧结构预检；可映射字段能继续填入配置器，但结果仍未 经过 Python Agent A，不能解锁复制或下载。"
+msgstr "Apply to configurator prefills only the custom PDE/BC editor and never selects the plate UI. Ready does not mean Agent A or code generation passed. The page does not generate scripts or train. Recommend method uses separate Planning endpoint, model, and browser-local Key settings. Mappable MethodSpec fields can be applied to the configurator, but copy and download stay disabled until Python Agent A validation."
+
+msgid "方法草稿使用 ``openpinn-planning-configurator-v1`` 交接。方法、变体、求解路径和训练步数 会在配置器存在对应控件时填入；不能表示的网络、采样、损失、优化器或微分设置会列为未映射 警告。交接数据不含 Key，且编辑后仍保持 Agent A 门禁。"
+msgstr "The method draft uses the ``openpinn-planning-configurator-v1`` handoff. Method, variant, solution path, and training steps are applied when matching controls exist; network, sampling, loss, optimizer, or differentiation settings that cannot be represented are listed as unmapped warnings. The handoff contains no Key, and editing does not bypass the Agent A gate."
+
+msgid "页面按已声明的物理族追问。热传导、泊松和其他已声明物理族使用各自或通用的问题侧完整性 检查，不会混入线弹性专用的 E、ν、``ux``、``uy``；物理族不清楚时只会询问是哪一种 物理，不会默认线弹性。 提示词允许把明显事实做合理延伸，并要求用 ``understanding.inferred`` 警告标出推断； 真正缺失的数值仍然要追问。Understanding 报告本身不选择网络、采样、损失或优化器； 独立的“推荐方法”按钮才调用 Planning。页面不实现 Repair。"
+msgstr "Follow-up questions are scoped to the declared physics family without elasticity-only gaps. The prompt marks inferred facts with ``understanding.inferred`` and keeps true gaps as questions. The Understanding report itself does not select a network, sampler, loss, or optimizer; the separate Recommend method button calls Planning. The page does not implement Repair."
+
+
+msgid "“填入配置器”只把问题草稿预填到**自定义 PDE/BC 编辑器**；包括线弹性在内都不会切换到 带孔板专用界面。显示就绪表示草稿对当前物理族已经自洽，不表示 Validation Agent 或代码生成已经 通过。配置器、YAML 和 CodeBuilder 仍须使用现有校验；失败时复制和下载保持禁用。页面 不生成脚本，也不在浏览器中训练。“推荐方法”使用独立的 Planning 接口、模型和 Key 请求 MethodSpec 草稿并做浏览器侧结构预检；可映射字段能继续填入配置器，但结果仍未 经过 Python Specification Validation Agent，不能解锁复制或下载。"
+msgstr "Apply to configurator prefills only the custom PDE/BC editor. Ready does not mean Validation passed. Planning performs only a browser shape check, and copy/download remain locked until Python validates the final pair."
+
+msgid "方法草稿使用 ``openpinn-planning-configurator-v1`` 交接。方法、变体、求解路径和训练步数 会在配置器存在对应控件时填入；不能表示的网络、采样、损失、优化器或微分设置会列为未映射 警告。交接数据不含 Key，且编辑后仍保持 Validation Agent 门禁。浏览器只执行草稿形状或 同源合同预检，不会声称已经运行完整 Python Validation。"
+msgstr "The method draft uses the ``openpinn-planning-configurator-v1`` handoff. The handoff contains no Key and retains the Validation Agent gate after edits. The browser performs only a draft-shape or shared-contract precheck and never claims full Python Validation."
+
+msgid "M35 的“网页分层 Validation”把当前 ``problem_draft`` 和 ``method_draft`` 作为一个 指纹化组合处理。通用问题使用 ``GenericProblemDescription`` ``schema_version=1``， 物理标签是自由字符串；多场、参数、坐标、方程、几何、边初值、耦合与无法解释的 ``opaque_blocks`` 都保留。检查报告按 L0–L6 给出 ``pass`` / ``fail`` / ``unknown`` / ``unsupported`` / ``skipped``，不使用一个 ``ok`` 暗示可训练。表达式只经过受限词法、 符号作用域和导数坐标检查，绝不通过 ``eval`` 执行。"
+msgstr "M35 layered web Validation fingerprints the current ``problem_draft`` and ``method_draft`` as one pair. Version 1 ``GenericProblemDescription`` retains free-form physics labels, multiple fields, parameters, coordinates, equations, geometry, conditions, couplings, and opaque blocks. L0-L6 results use ``pass``, ``fail``, ``unknown``, ``unsupported``, and ``skipped`` without a misleading aggregate ``ok``. Restricted syntax and scope checks never execute expressions with ``eval``."
+
+msgid "适定性、稳定性、收敛、可训练性与物理正确性层始终为 ``unknown``。方法或后端 ``unsupported`` 不会把问题描述标成无效。页面可下载明确标记为“非训练产物”的通用规格、 方法草稿与分层报告；网页没有同源 Python 目标闸，所以可运行训练/求解代码导出保持锁定。 只有通用字段可无损映射时 adapter 才产生 Executable pair；否则带 path/reason 拒绝。即使映射 成功，仍必须通过 Python M34 ``validate_specs``，通用报告不能绕过它。"
+msgstr "Well-posedness, stability, convergence, trainability, and physical correctness always remain ``unknown``. Unsupported methods do not invalidate the description. The page downloads only clearly labelled non-training artifacts, while runnable export stays locked without a same-source Python target gate. The adapter is lossless-or-reject, and even an accepted Executable pair must pass Python M34 ``validate_specs``."
+
+msgid "M36 把这一步升级为 Hybrid Validation Agent。确定性轨仍只检查缺失声明、结构、 字段形状、受限表达式、符号引用、指纹和 adapter；语义轨使用用户明确配置的 OpenAI-compatible API，只报告 ``no_concern_identified`` / ``concerns`` / ``insufficient_information``。这些状态是带输入证据的模型建议，不是数学、物理、 收敛或可训练证明。未注册方法仅是 capability ``unsupported``，不会把问题判为物理无效。"
+msgstr "M36 upgrades this step to the Hybrid Validation Agent. The deterministic track remains limited to declarations, structure, shapes, restricted expressions, symbol references, fingerprints, and adapters. The semantic track calls an explicitly configured OpenAI-compatible API and reports only ``no_concern_identified``, ``concerns``, or ``insufficient_information``. These are model observations with input evidence, not proof of mathematics, physics, convergence, or trainability. An unregistered method is only capability ``unsupported`` and does not invalidate the physics."
+
+msgid "Validation 接口、模型和 Key 有独立控件；只有勾选“显式复用”才读取当前 Planning 设置。 Key 仅保存在当前浏览器 ``localStorage``，不进入 prompt 以外的报告、下载、错误或代码库。 401/403、超时、网络/CORS、取消、返回形状错误和乱序响应都会使语义审查显示 ``incomplete`` 或 stale，不会静默退回规则并冒充成功。LLM 不能覆盖确定性 fail、M34 或训练锁。"
+msgstr "Validation endpoint, model, and Key have independent controls. Planning settings are used only when explicit reuse is selected. The Key stays in browser ``localStorage`` and never enters reports, downloads, errors, or the repository. Authentication, timeout, network/CORS, cancellation, malformed responses, and out-of-order responses leave semantic review ``incomplete`` or stale without a silent rules fallback. LLM output cannot override deterministic failures, M34, or the training lock."
+
+msgid "M35 合并本身不等于线上验收。M36 按实际验收症状修复了 heat ``alpha``/扩散率声明丢失、 配置器编辑后旧指纹不可见地过期，以及导出仍锁定时声称“已可复制完整代码”的文案。 配置器会明确标记 stale，并把当前参数和训练步数快照发回本页重新审查。"
+msgstr "An M35 merge was not itself live acceptance. M36 fixes the observed loss of heat ``alpha``/diffusivity declarations, invisible expiry of old fingerprints after configurator edits, and wording that claimed complete code was copyable while export remained locked. The configurator visibly marks stale state and sends the current parameter and training-step snapshot back here for review."
+
+msgid "M37 在 U→P→V 后加入 Code Building Agent。它只接受当前指纹对应、确定性检查无 fail、 且语义审查完整的最终 Problem+Method；缺字段、旧指纹或 ``incomplete`` 都会硬阻断。 ``concerns`` 不阻断骨架生成，但会原样出现在 ``BuildReport`` 和骨架中供人工复核。 通用产品路径直接生成确定性的 Python 装配模板，不依赖旧线弹性 adapter，也不调用 LLM 写代码或解释代码。成功报告始终包含 ``backend_runnable=false``：骨架成功不表示可训练， 不会自动选择或启动任意物理后端；后端绑定仍须后续明确实现与验证。"
+msgstr "M37 adds the Code Building Agent after U→P→V. It accepts only the current fingerprint when deterministic checks have no failure and semantic review is complete; missing fields, stale fingerprints, or ``incomplete`` review hard-block output. ``concerns`` do not block skeleton generation, but remain visible in the ``BuildReport`` and skeleton for human review. The generic product path emits a deterministic Python assembly template without the legacy elasticity adapter and without LLM code generation or explanation. Every successful report declares ``backend_runnable=false``: skeleton success does not mean trainable, and no arbitrary-physics backend is selected or started. Backend binding requires a later explicit implementation and validation."
+
+msgid "M38 增加第五段 Diagnostic Evaluation Agent。CodeBuilder 骨架运行时会自动写入 ``openpinn_run/run_artifact.json``；其中包含当前 pair fingerprint、后端可运行标记、 ``not_runnable`` / ``completed`` / ``failed`` 状态、loss 与误差槽，以及 failure stack 槽。 当前通用骨架仍写 ``backend_runnable=false`` 和 ``status=not_runnable``，不会伪造训练结果。"
+msgstr "M38 adds the fifth step, Diagnostic Evaluation Agent. Running a CodeBuilder skeleton automatically writes ``openpinn_run/run_artifact.json`` with the current pair fingerprint, backend capability, ``not_runnable`` / ``completed`` / ``failed`` status, loss and error slots, and failure-stack slots. The current generic skeleton records ``backend_runnable=false`` and ``status=not_runnable`` without fabricating training results."
+
+msgid "Diagnostic 页面只在本地读取 JSON，或从 ZIP 中读取 ``run_artifact.json``。确定性轨检查 schema、指纹、状态、loss/error metrics 和失败记录；真实 LLM 轨使用独立接口、模型和 Key， 只有显式勾选才复用 Validation 设置。认证、超时、CORS 或返回结构错误均显示 ``incomplete``，不会把确定性规则冒充 LLM 成功。``DiagnosticReport`` 包含双轨结果、 ``human_summary``、disclaimer 和非绑定 ``repair_hints``；诊断不会修改 Problem、Method、 脚本或超参数，``repair_performed=false``，也不保证后续 Repair 成功。"
+msgstr "The Diagnostic page reads JSON locally or extracts ``run_artifact.json`` from a ZIP. Its deterministic track checks schema, fingerprint, status, loss/error metrics, and failures. The real LLM track has an independent endpoint, model, and Key; Validation settings are used only after explicit selection. Authentication, timeout, CORS, and response-shape failures remain ``incomplete`` without rules posing as LLM success. ``DiagnosticReport`` contains both tracks, ``human_summary``, a disclaimer, and non-binding ``repair_hints``. Diagnosis does not mutate Problem, Method, scripts, or hyperparameters; ``repair_performed=false`` and later Repair is not guaranteed."
+
+msgid "Diagnostic Key 仅存当前浏览器 ``localStorage``，不写入 RunArtifact、报告、下载、错误或 代码库。诊断是训后观察，不证明正确性、适定性、收敛性或可训练性；Repair 和任意物理 可运行后端仍属于后续里程碑。"
+msgstr "The Diagnostic Key stays in browser ``localStorage`` and never enters RunArtifact, reports, downloads, errors, or the repository. Diagnosis is a post-run observation, not proof of correctness, well-posedness, convergence, or trainability. Repair and runnable arbitrary-physics backends remain later milestones."
+
+msgid "Stage A 在现有 ``GenericProblemDescription`` 上增加最小可训问题字段合同，而没有增加训练 后端。空间和时间坐标现在携带一等的 ``bounds`` 与 ``unit``；未知场包含 name、components 和 unit；参数要求唯一 name、value 与 unit；PDE、BC、IC 和 geometry 继续作为一等字段。 ``trainable_contract.mapping_complete`` 是“可供后续训练路径消费”的独立映射信号，不等于 ``ready_for_validation``、物理正确或当前可训练。Validation 报告同时暴露 ``summary.mapping_complete_for_later_training``。"
+msgstr "Stage A adds a minimal trainable-problem field contract to the existing ``GenericProblemDescription`` without adding a training backend. Space and time coordinates now carry first-class ``bounds`` and ``unit``; unknown fields contain name, components, and unit; parameters require unique names, values, and units; PDE, BC, IC, and geometry remain first-class. ``trainable_contract.mapping_complete`` is a distinct mapping signal for later training paths, not ``ready_for_validation``, physical correctness, or current trainability. Validation also exposes ``summary.mapping_complete_for_later_training``."
+
+msgid "对于方程使用 ``alpha``、同时存在等值 unit-less ``diffusivity`` 的情况，映射器明确选择 带单位的 ``alpha`` 作为 canonical parameter，并在 ``normalizations`` 中记录原因；数值或 单位冲突则保留为 issue，使 mapping complete 为 false。时间范围若只存在于 opaque block、 缺少 BC/动态问题 IC、未绑定表达式符号或任何必需单位，同样不能通过 Stage A 合同。 通用 CodeBuilder 仍只生成带 ``NotImplementedError`` 的骨架，``backend_runnable=false``； 共享引擎、Poisson/heat adapter 和可执行门禁属于后续 Stage B–G。"
+msgstr "When an equation uses ``alpha`` and an equivalent unit-less ``diffusivity`` also exists, the mapper explicitly chooses the unit-bearing ``alpha`` as the canonical parameter and records the reason in ``normalizations``. Value or unit conflicts remain issues and make mapping incomplete. Time bounds found only in opaque blocks, missing BC or dynamic IC, unbound expression symbols, and missing required units also fail the Stage A contract. Generic CodeBuilder still emits only a ``NotImplementedError`` skeleton with ``backend_runnable=false``; the shared engine, Poisson/heat adapters, and executable gates belong to later Stages B-G."

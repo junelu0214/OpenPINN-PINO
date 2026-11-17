@@ -1,0 +1,5 @@
+{
+  "complete_zh": "这是一个二维线弹性位移问题。矩形区域 x 从 0 到 2，y 从 0 到 2，\n有一个圆孔，中心 (1, 1)，半径 0.25。材料杨氏模量 E=210e9 Pa，\n泊松比 nu=0.3。左边固定，右边施加 x 方向牵引 1e6，\n上下边和孔边自由。未知量为 ux、uy。",
+  "missing_zh": "求一个二维线弹性位移问题：矩形区域 x 从 0 到 2，y 从 0 到 1。\n我还没有决定材料参数和边界条件。",
+  "complete_en": "A two-dimensional linear elasticity displacement problem on a rectangle,\nx = 0 to 2 and y = 0 to 2. A hole has center (1, 1) and radius 0.25.\nYoung's modulus is 210e9 Pa and Poisson's ratio is 0.3. The left edge is fixed,\nthe right edge has x-direction traction 1e6, and the top, bottom, and hole\nboundaries are traction-free. Unknowns are ux and uy."
+}

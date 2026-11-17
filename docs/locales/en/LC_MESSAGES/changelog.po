@@ -1,0 +1,206 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+msgid "变更记录"
+msgstr "Changelog"
+
+msgid "2026-11-12：Hybrid 语义证据路径兼容"
+msgstr "2026-11-12: Hybrid semantic evidence path compatibility"
+
+msgid "Hybrid Validation 的受限路径解析同时接受 ``problem.equations[0]`` 点号/方括号语法和 ``/problem/equations/0`` JSON Pointer 语法；两者仍必须解析到所提交 Problem、Method 或 deterministic summary 内的真实节点。"
+msgstr "Hybrid Validation's bounded path resolver accepts both ``problem.equations[0]`` dot/bracket syntax and ``/problem/equations/0`` JSON Pointer syntax. Both must still resolve to a real node in the submitted Problem, Method, or deterministic summary."
+
+msgid "真实模型返回 JSON Pointer 形式的 ``assumptions_noted.path`` 时不再误报 ``schema.semantic``。Case 1 回归覆盖 Hybrid 完成、CodeBuilder 可运行脚本、本地非 smoke 训练与 Diagnostic 工件校验。"
+msgstr "A real model response using JSON Pointer for ``assumptions_noted.path`` no longer produces a false ``schema.semantic`` error. The Case 1 regression covers Hybrid completion, a runnable CodeBuilder script, local non-smoke training, and Diagnostic artifact validation."
+
+msgid "2026-11-12：Robin 目标表达式优先级修复"
+msgstr "2026-11-12: Robin target-expression precedence fix"
+
+msgid "当 Understanding 同时返回完整 Robin 等式 ``expression`` 和右端 ``value_expression`` 时，规范化、能力匹配与 Python 编译统一优先采用右端目标。完整等式继续 保留在 ``source_draft``，不会再因其中的 ``=`` 被误当作受限目标表达式而阻断 CodeBuilder。"
+msgstr "When Understanding returns both a complete Robin equation in ``expression`` and its right-hand target in ``value_expression``, normalization, capability matching, and Python compilation consistently prefer the target. The complete equation remains in ``source_draft`` and its ``=`` no longer blocks CodeBuilder by being mistaken for a restricted target expression."
+
+msgid "回归测试使用生产验收中的原始形态：``alpha*w+beta*dx(w)=value`` 与 ``value_expression=-pi`` 同时存在，并覆盖可运行脚本和本地非 smoke 训练。"
+msgstr "The regression test uses the exact production acceptance shape with ``alpha*w+beta*dx(w)=value`` and ``value_expression=-pi`` together, covering a runnable generated script and local non-smoke training."
+
+msgid "2026-11-11：通用标量表达式边界闭环修复"
+msgstr "2026-11-11: generic scalar expression-boundary loop fixes"
+
+msgid "Understanding 就绪判定接受边界的数值或坐标表达式，点路径补答会保留 ``boundaries`` 数组； ``pde.residuals`` 会提升为多条规范方程。"
+msgstr "Understanding readiness accepts numeric or coordinate-dependent boundary targets, dotted-path clarifications preserve the ``boundaries`` array, and ``pde.residuals`` is promoted to canonical equations."
+
+msgid "Generic Validation 将 ``value_expression`` 规范为可编译边界目标，并移除 LLM 误放到参数表、 且未被 PDE 使用的字符串 ``value`` 占位项。其余非数值参数继续 fail closed。"
+msgstr "Generic Validation canonicalizes ``value_expression`` as a compilable boundary target and removes a string ``value`` placeholder that an LLM misplaced in the parameter table when the PDE does not use it. Other nonnumeric parameters continue to fail closed."
+
+msgid "Python 表达式编译器直接接受 ``value_expression`` 别名。Robin ``-pi`` 以及二维 ``x``、``y``、 ``y+2`` 目标已覆盖生成脚本、本地非 smoke 训练和 Diagnostic 工件校验。"
+msgstr "The Python expression compiler accepts the ``value_expression`` alias directly. Robin ``-pi`` and 2D ``x``, ``y``, and ``y+2`` targets are covered through generated scripts, local non-smoke training, and Diagnostic artifact validation."
+
+msgid "Diagnostic 的“复用 Validation 设置”现在复用 Validation 实际使用的设置，包括 Validation 继续复用 Planning 的链式情况；Understanding 传输错误不再误报为 Planning 失败。"
+msgstr "Diagnostic's reuse option now uses the settings actually used by Validation, including the chained case where Validation reused Planning. Understanding transport errors are no longer mislabeled as Planning failures."
+
+msgid "2026-11-11：通用单标量强形式 PINN 后端"
+msgstr "2026-11-11: generic single-scalar strong-form PINN backend"
+
+msgid "执行能力从两张冻结卡扩展到受限合同内的单标量强形式问题：一维或二维矩形空间、可选时间轴、 一条或多条安全编译残差，以及 Dirichlet、坐标导数型 Neumann 和 Robin 条件。字段名不再 固定为 ``u``；所有路径仍复用 ``run_pinn``，没有新增训练循环。"
+msgstr "Expand executable capability from two frozen cards to contract-bounded single-scalar strong-form problems: 1D or 2D rectangular space, an optional time axis, one or more safely compiled residuals, and Dirichlet, coordinate-derivative Neumann, and Robin conditions. The field name is no longer fixed to ``u``; every path still reuses ``run_pinn`` with no new training loop."
+
+msgid "Python 与网页注册表按坐标、边界位置、几何、条件类型和受限表达式 fail closed。CodeBuilder 对匹配问题继续生成同一个 ``openpinn_train.py``；通用问题没有参考解时只记录 loss，不生成 或猜测误差与精度阈值。"
+msgstr "The Python and web registries fail closed on coordinates, boundary locations, geometry, condition types, and restricted expressions. CodeBuilder continues to generate the same ``openpinn_train.py`` for matching problems. Generic problems without a reference solution record loss only and do not generate or guess errors or accuracy thresholds."
+
+msgid "新增二维多残差加 Robin 的真实训练测试，以及类 Burgers 单标量时变问题的网页生码、本地 非 smoke 训练和 Diagnostic 闭环。向量场、多场耦合、复杂几何、周期边界和任意 PDE 仍不支持。"
+msgstr "Add a real 2D multi-residual training test with Robin conditions and a web-codegen, local non-smoke training, and Diagnostic loop for a Burgers-like time-dependent scalar problem. Vector fields, multi-field coupling, complex geometry, periodic boundaries, and arbitrary PDEs remain unsupported."
+
+msgid "2026-11-11：Stage G 网页到本地训练闭环验收"
+msgstr "2026-11-11: Stage G web-to-local training closed-loop acceptance"
+
+msgid "为冻结的一维 Poisson 与非定常 heat 卡增加产品级闭环回归：CodeBuilder 导出真实 ``openpinn_train.py``，以显式 CPU 短预算进行非 smoke 训练，再把同次 JSON 和 ZIP ``RunArtifact`` 交给 Diagnostic。实测误差被持久化，但不作为精度通过门槛。"
+msgstr "Add product closed-loop regression for the frozen 1D Poisson and unsteady-heat cards: CodeBuilder exports a real ``openpinn_train.py``, runs non-smoke training under an explicit short CPU budget, then passes same-run JSON and ZIP ``RunArtifact`` inputs to Diagnostic. Measured errors are persisted but are not accuracy gates."
+
+msgid "网页现在直接显示 ``execution_capability`` 状态与 backend id。``supported`` 会明确提示可进入 CodeBuilder 生成本地脚本且网页不训练；``unsupported`` / ``incomplete`` 继续保留不可运行骨架。"
+msgstr "The web page now shows ``execution_capability`` status and backend id directly. ``supported`` explicitly allows proceeding to CodeBuilder for a local script while the browser does not train; ``unsupported`` and ``incomplete`` retain the non-runnable skeleton."
+
+msgid "Understanding 页面加入两张可匹配提示词、真实脚本参数、虚拟环境、JSON/ZIP 上传、状态解释和 常见失败提示。线弹性仍是保留缺口；本阶段没有 Repair、任意 PDE 后端或官方精度阈值。"
+msgstr "The Understanding page adds two matchable prompts, real script flags, virtual-environment guidance, JSON/ZIP upload instructions, status interpretation, and common failure hints. Elasticity remains a reserved gap; this stage adds no Repair, arbitrary-PDE backend, or official accuracy threshold."
+
+msgid "本地与 CI 验收不代表官方站点 QA。Stage G 合入并部署后仍需由 operator 在受邀页面另行完成 浏览器验收；本次变更不部署，也不声明线上页面已经包含 Stage G。"
+msgstr "Local and CI acceptance does not constitute official-site QA. After Stage G is merged and deployed, an operator must separately perform browser acceptance on the gated page. This change does not deploy or claim the live page already contains Stage G."
+
+msgid "2026-11-10：Stage D–F 本地训练与诊断闭环"
+msgstr "2026-11-10: Stage D-F local training and diagnosis loop"
+
+msgid "新增结构匹配的 ``poisson_1d`` 与 ``heat_1d_unsteady`` adapter。两者编译 Stage B 表达式并调用同一个 Stage C ``run_pinn``；adapter 内没有第二套训练循环。冻结参考网格分别为 101 点与 51×51 点，报告实测 ``max_abs`` 和 ``rel_l2``，但没有虚构精度阈值。"
+msgstr "Add structurally matched ``poisson_1d`` and ``heat_1d_unsteady`` adapters. Both compile Stage B expressions and call the same Stage C ``run_pinn``; adapters contain no second training loop. The frozen reference grids contain 101 and 51×51 points and report measured ``max_abs`` and ``rel_l2`` without inventing accuracy thresholds."
+
+msgid "网页 Validation 增加独立执行能力轨。映射完整、确定性与语义门禁通过且结构命中注册表时， CodeBuilder 生成 ``openpinn_train.py``，支持显式步数、墙钟、设备与一真实步 ``--smoke``； 不支持或不完整的结构继续生成 ``backend_runnable=false`` 骨架。"
+msgstr "Add a separate execution-capability track to web Validation. When mapping is complete, deterministic and semantic gates pass, and structure matches the registry, CodeBuilder generates ``openpinn_train.py`` with explicit step, wall-clock, and device controls plus one-real-step ``--smoke``. Unsupported or incomplete structures retain a ``backend_runnable=false`` skeleton."
+
+msgid "本地脚本把同次运行的 engine 状态、预算、设备、loss、参考误差、失败信息及 pair fingerprint 写入 ``RunArtifact``。Diagnostic 接受完整状态集合，拒绝 stale、fixture/example、smoke-only 和缺少同次运行来源的工件。``completed`` 仍只表示停止条件，不表示达到精度。"
+msgstr "The local script writes engine status, budgets, device, loss, reference errors, failure details, and the pair fingerprint from the same run into ``RunArtifact``. Diagnostic accepts the full status set and rejects stale, fixture/example, smoke-only artifacts and artifacts without same-run provenance. ``completed`` still identifies a stopping condition, not achieved accuracy."
+
+msgid "用户路径是“下载脚本 → 本地运行 → 上传 ``RunArtifact`` 到 Diagnostic”。本阶段不包含 Stage G、线弹性训练、任意 PDE 后端或官方精度阈值。"
+msgstr "The user path is download the script, run it locally, then upload ``RunArtifact`` to Diagnostic. This stage does not include Stage G, elasticity training, arbitrary-PDE backends, or official accuracy thresholds."
+
+msgid "2026-11-10：Stage C 共用 PINN 引擎"
+msgstr "2026-11-10: Stage C shared PINN engine"
+
+msgid "新增 ``run_pinn`` 共用强形式入口，复用现有 ``Trainer``、采样、loss composer、优化器和 checkpoint。每次运行必须显式给出步数与墙钟预算，默认设备为 CPU，并写入 history、 checkpoint、manifest 和独立的 ``PINNEngineRun`` JSON。"
+msgstr "Add the shared strong-form ``run_pinn`` entry, reusing the existing ``Trainer``, sampling, loss composer, optimizer, and checkpoint support. Every run requires explicit step and wall-clock budgets, defaults to CPU, and writes history, a checkpoint, a manifest, and a separate ``PINNEngineRun`` JSON record."
+
+msgid "状态限定为 ``budget_exhausted``、``interrupted``、``failed``、``not_converged`` 与 ``completed``。只有调用方给出的停止条件在预算内触发时才写 ``completed``；有限 loss 或 用完步数不会被描述为训练成功。取消、KeyboardInterrupt、非有限 loss 和异常均保留明确结果。"
+msgstr "Statuses are limited to ``budget_exhausted``, ``interrupted``, ``failed``, ``not_converged``, and ``completed``. ``completed`` is written only when a caller-supplied stop condition fires inside the budget; a finite loss or using all steps is not described as training success. Cancellation, KeyboardInterrupt, non-finite loss, and exceptions retain explicit outcomes."
+
+msgid "Stage B 编译残差可通过通用 ``PDEProblem`` hook 接入同一引擎。本阶段未加入 Poisson/heat adapter、网页可运行后端、产品 RunArtifact 或 Diagnostic/Validation 执行门禁；CodeBuilder 继续保持 ``backend_runnable=false`` 与 ``NotImplementedError``。"
+msgstr "Stage B compiled residuals can attach to the same engine through a generic ``PDEProblem`` hook. This stage adds no Poisson/heat adapter, runnable web backend, product RunArtifact, or Diagnostic/Validation executable gate; CodeBuilder keeps ``backend_runnable=false`` and ``NotImplementedError``."
+
+msgid "2026-11-10：Stage B 安全表达式与自动微分"
+msgstr "2026-11-10: Stage B safe expressions and automatic differentiation"
+
+msgid "新增受限表达式编译器，把 Stage A ``mapping_complete`` 问题中的字段、坐标与参数绑定为 PyTorch 张量运算，并复用 ``openpinn.autodiff.grad`` 计算声明坐标上的一阶与嵌套导数。 首期白名单为四则运算、括号、数值、``pi``、``sin``、``cos``、``exp`` 和 ``d<coordinate>(...)``；未绑定名称、未声明坐标、其他函数及不安全语法均 fail closed。"
+msgstr "Add a restricted expression compiler that binds fields, coordinates, and parameters from a Stage A ``mapping_complete`` problem to PyTorch tensor operations and reuses ``openpinn.autodiff.grad`` for first and nested derivatives on declared coordinates. The first-period whitelist covers arithmetic, parentheses, numeric literals, ``pi``, ``sin``, ``cos``, ``exp``, and ``d<coordinate>(...)``. Unbound names, undeclared coordinates, other functions, and unsafe syntax fail closed."
+
+msgid "可编译具名 PDE、Dirichlet/Neumann 边界和初值残差，输出保持 ``(N, 1)``，供后续共享 训练引擎接入。网页受限检查器同步使用同一首期白名单。"
+msgstr "Compile named PDE, Dirichlet/Neumann boundary, and initial-condition residuals with ``(N, 1)`` outputs for a later shared training engine. The browser restricted checker uses the same first-period whitelist."
+
+msgid "本阶段只验证表达式绑定与自动微分。解析残差接近零不代表完成训练或物理精度验证； CodeBuilder 仍保持 ``backend_runnable=false`` 和 ``NotImplementedError``。训练引擎及 Poisson/heat adapter 留待后续阶段。"
+msgstr "This stage validates expression binding and automatic differentiation only. A near-zero analytic residual is not completed training or physical-accuracy validation. CodeBuilder keeps ``backend_runnable=false`` and ``NotImplementedError``; the training engine and Poisson/heat adapters remain later-stage work."
+
+msgid "文档构建同时输出默认中文站点与 ``en/`` 英文站点，每页提供语言切换。配置器的交互 控件仍以中文为主；Operator 路径的标题、说明、校验与状态提示现已完成中文化。剩余本地化 工作缩小为参数 schema 标签与 ``hook.summary`` 等注册表元数据。"
+msgstr "The documentation build outputs both the default Chinese site and an English site under ``en/``, with a language switch on every page. Interactive configurator controls remain primarily Chinese; Operator-path headings, help, validation, and status feedback are now localized in Chinese. The remaining localization backlog is limited to registry metadata such as parameter-schema labels and ``hook.summary``."
+
+msgid "2026-10-30：M22 十种方法摘要基线"
+msgstr "2026-10-30: M22 baselines in the ten-method summary"
+
+msgid "十种方法的结果摘要现按各方法页的单随机种参考实验并列展示基线与改进组的相对 L2、 PDE 残差和用时，并明确将原“解误差”标为“相对 L2”。"
+msgstr "The ten-method result summary now shows paired baseline and improved relative L2, PDE residual, and time from each method page's single-seed reference experiment, and explicitly labels the former solution-error column as relative L2."
+
+msgid "2026-10-30：M23 十种方法摘要短训说明"
+msgstr "2026-10-30: M23 short-training note for the ten-method summary"
+
+msgid "十种方法结果摘要现明确标为 CPU 单随机种的短训参考，而非充分收敛的精度排名；相对 L2 接近或高于 1 表示该次短训尚未达到实用精度，加长训练数字待后续算例训练交付再更新。"
+msgstr "The ten-method result summary is now explicitly labeled as a single-seed CPU short-training reference rather than a fully converged accuracy ranking. A relative L2 near or above 1 means that the short run has not yet reached useful accuracy; longer-training values will be updated after the follow-up example runs are delivered."
+
+msgid "2026-10-30：M24 高频 Poisson 三条短训数字刷新"
+msgstr "2026-10-30: M24 refresh of three high-frequency Poisson short runs"
+
+msgid "Fourier / Modified MLP / 硬边界方法页与十种方法摘要对应行，按 CPU 单随机种 5000 步配对短训加长结果刷新数字与对照图；摘要仍标为短训参考。Modified MLP 保留负结果。未改 ``configs/reference_runs`` 产品默认步数或训练 API。"
+msgstr "The Fourier, Modified MLP, and hard-boundary method pages and matching ten-method summary rows now use the extended single-seed CPU 5000-step paired short-run values and comparison figures; the summary remains labeled as a short-training reference, and the Modified MLP negative result is retained. Product defaults in ``configs/reference_runs`` and the training API are unchanged."
+
+msgid "2026-11-04：M32 LLM Solver Planning 薄切片"
+msgstr "2026-11-04: M32 LLM Solver Planning thin slice"
+
+msgid "新增 ``openpinn.agents.plan_method`` 与固定 ``PlanReport``，以 OpenAI-compatible LLM 为主路径推荐注册表合法的 ``MethodSpec`` 草稿和简短中文理由。 ``auto`` 在无 Key、接口失败或 JSON 不合法时带明确警告退回确定性 rules；rules 只用于 fallback 与 CI。代码生成前仍须现有 Agent A ``validate(problem, method)`` 通过。"
+msgstr "Add ``openpinn.agents.plan_method`` and fixed ``PlanReport``. The OpenAI-compatible LLM primary path recommends a registry-valid ``MethodSpec`` draft with short Chinese rationale. ``auto`` visibly falls back to deterministic rules for missing Key, endpoint failure, invalid JSON, and CI. Existing Agent A ``validate(problem, method)`` must still pass before code generation."
+
+msgid "Understanding 网页试用新增只读“推荐方法”，复用浏览器中的用户 API 设置并严格检查 返回形状，不生成脚本、不训练，也不直接解锁复制或下载。"
+msgstr "The Understanding Web Trial adds a read-only Recommend method action that reuses the user's browser API settings and strictly checks the returned shape. It generates no script, performs no training, and does not unlock copy or download."
+
+
+msgid "2026-11-09：M34 Specification Validation Agent"
+msgstr "2026-11-09: M34 Specification Validation Agent"
+
+msgid "将原 Agent A 产品化为论文 §4.3 的 Specification Validation Agent，新增 ``validate_specs`` 与 ``ValidationAgent`` 稳定入口，同时保留旧 ``validate`` 和 ``openpinn.agents.validator`` 导入兼容。"
+msgstr "Productize the former Agent A as the paper §4.3 Specification Validation Agent. Add stable ``validate_specs`` and ``ValidationAgent`` entry points while preserving legacy imports."
+
+msgid "``from_specs`` 默认对最终 ``ProblemSpec`` + ``MethodSpec`` 组合执行确定性 Validation； 缺字段、不完整边界、未知注册项和不兼容微分器会阻断 codegen。修改任一规格会使已通过 快照失效，验证与生码使用同一规范化 payload。"
+msgstr "``from_specs`` runs deterministic Validation on the final spec pair by default. Missing fields, incomplete boundaries, unknown entries, and incompatible differentiators block codegen. Editing either spec invalidates the accepted snapshot."
+
+msgid "网页明确区分浏览器合同预检和完整 Python Validation。Planning 导入在最终组合通过 Python Validation 前继续锁定复制与下载；带孔板导出脚本在运行 codegen 前再次校验。"
+msgstr "The web UI distinguishes browser contract prechecks from full Python Validation. Planning imports keep export locked until Python accepts the final pair, and plate scripts validate again before codegen."
+
+msgid "2026-11-09：M35 通用网页描述与分层 Validation"
+msgstr "2026-11-09: M35 generic web description and layered Validation"
+
+msgid "新增 ``GenericProblemDescription`` ``schema_version=1`` 与 L0–L6 ``LayeredValidationReport``，允许自由物理标签、多场、耦合和 opaque 数学进入网页检查。"
+msgstr "Add version 1 ``GenericProblemDescription`` and the L0-L6 ``LayeredValidationReport`` so free-form physics labels, multiple fields, couplings, and opaque mathematics can enter browser checks."
+
+msgid "Planning 配置器交接现在联合消费 ``problem_draft`` 与 ``method_draft``， 缺少问题草稿时 fail closed，不再静默使用默认问题。"
+msgstr "The Planning configurator handoff now jointly consumes ``problem_draft`` and ``method_draft``. A missing problem draft fails closed instead of silently selecting a default problem."
+
+msgid "通用规格/方法/报告可作为标注清楚的非训练 JSON 导出。网页无同源 Python 目标闸，因此训练代码保持锁定；Executable adapter 只能无损成功或显式拒绝， 成功后仍必须走 M34 Python Validation。受限表达式检查不使用 ``eval``。"
+msgstr "Generic specs, methods, and reports can be exported as clearly labelled non-training JSON. Training code stays locked without a same-source Python target gate. The Executable adapter is lossless-or-reject, and successful mappings still require M34 Python Validation. Restricted expression checks do not use ``eval``."
+
+msgid "2026-11-09：M36 Hybrid Validation Agent"
+msgstr "2026-11-09: M36 Hybrid Validation Agent"
+
+msgid "在 M35 L0–L6 确定性结构报告旁新增真实 OpenAI-compatible LLM 语义审查， 状态限定为 ``no_concern_identified`` / ``concerns`` / ``insufficient_information``，证据必须来自当前输入 path/excerpt。API 失败为 incomplete， 不会用规则冒充 LLM 成功。"
+msgstr "Add real OpenAI-compatible LLM semantic review beside the M35 L0-L6 deterministic structure report. Status is bounded to ``no_concern_identified``, ``concerns``, or ``insufficient_information``, and evidence must come from current input paths and excerpts. API failure remains incomplete without a rules fallback posing as LLM success."
+
+msgid "报告绑定完整 Problem/Method 快照、pair fingerprint、request id 和语义版本。 编辑任一规格立即标记 stale；配置器可把当前编辑快照发回 Hybrid Validation。 LLM 不能修改规格、覆盖确定性 fail/M34 或解锁训练导出。"
+msgstr "Reports bind the full Problem/Method snapshots, pair fingerprint, request id, and semantic version. Editing either spec immediately marks the report stale, and the configurator can send its current snapshot back to Hybrid Validation. LLM output cannot mutate specs, override deterministic failures or M34, or unlock training export."
+
+msgid "修复 heat 扩散率/``alpha`` 参数在 Generic 规范化中丢失的症状，并在导出锁定时 改用“代码预览”文案，不再声称脚本已可复制/下载。Validation Key 仅存当前浏览器， 不写入报告或非训练导出。"
+msgstr "Fix loss of heat diffusivity/``alpha`` during Generic normalization and use code-preview wording while export is locked instead of claiming that a script is ready to copy or download. The Validation Key stays in the current browser and is never written to reports or non-training exports."
+
+msgid "2026-11-09：M37 Code Building Agent"
+msgstr "2026-11-09: M37 Code Building Agent"
+
+msgid "在网页 U→P→V 链路后新增确定性 Code Building Agent。它把当前已验证的通用 Problem+Method 生成 Python 装配骨架和 ``BuildReport``，不依赖旧线弹性 adapter， 也不使用 LLM 生码或解释代码。"
+msgstr "Add a deterministic Code Building Agent after the web U→P→V flow. It turns the current validated generic Problem+Method into a Python assembly skeleton and ``BuildReport`` without the legacy elasticity adapter or LLM code generation and explanation."
+
+msgid "确定性 fail、缺少模板字段、旧 pair fingerprint 或语义 ``incomplete`` 会阻断且不输出 源码；语义 ``concerns`` 允许生成，但必须保留在报告和骨架中。"
+msgstr "Deterministic failures, missing template fields, a stale pair fingerprint, or semantic ``incomplete`` state block all source output. Semantic ``concerns`` allow generation only when they remain visible in the report and skeleton."
+
+msgid "产物始终声明 ``backend_runnable=false`` 并保留未实现的后端绑定入口。骨架成功不代表 可训练，也不会启动训练；任意物理可运行后端留待后续明确实现和验证。"
+msgstr "The artifact always declares ``backend_runnable=false`` and keeps backend binding unimplemented. Skeleton success does not mean trainable and starts no training; a runnable arbitrary-physics backend requires later explicit implementation and validation."
+
+msgid "2026-11-10：M38 Diagnostic Evaluation Agent"
+msgstr "2026-11-10: M38 Diagnostic Evaluation Agent"
+
+msgid "CodeBuilder 通用骨架现在运行即写 ``openpinn_run/run_artifact.json``，记录 pair fingerprint、后端能力、运行状态、loss/error 槽和 failure stack 槽；当前非运行后端诚实 标记为 ``not_runnable``。"
+msgstr "Running a generic CodeBuilder skeleton now writes ``openpinn_run/run_artifact.json`` with the pair fingerprint, backend capability, run status, loss/error slots, and failure-stack slots. The current non-runnable backend is honestly marked ``not_runnable``."
+
+msgid "网页新增第五段 Diagnostic，支持本地 JSON/ZIP RunArtifact，分别展示确定性 metrics/schema findings 与真实可配置 LLM 诊断，并输出 ``DiagnosticReport`` 和 ``human_summary``。"
+msgstr "Add the fifth web step, Diagnostic, with local JSON/ZIP RunArtifact input, separate deterministic metrics/schema findings and real configurable LLM diagnosis, plus ``DiagnosticReport`` and ``human_summary`` output."
+
+msgid "stale、无效 schema 或已完成却缺 loss 的 artifact 不会获得 healthy 状态。API 失败保持 ``incomplete``，Key 不进入报告；所有 ``repair_hints`` 都是非绑定建议，不改写代码或规格。"
+msgstr "Stale artifacts, invalid schemas, and completed artifacts without loss data cannot receive a healthy status. API failures remain ``incomplete`` and Keys never enter reports. All ``repair_hints`` are non-binding guidance and do not rewrite code or specs."
+
+msgid "2026-11-10：Stage A 最小可训问题合同"
+msgstr "2026-11-10: Stage A minimal trainable-problem contract"
+
+msgid "在现有 ``GenericProblemDescription`` 中把空间/时间 bounds 与 units、未知场、参数、PDE、 BC、IC 和 geometry 定义为后续训练路径需要的一等字段，并新增独立的 ``trainable_contract.mapping_complete`` 信号。"
+msgstr "Define space/time bounds and units, unknown fields, parameters, PDE, BC, IC, and geometry as first-class fields required by later training paths in the existing ``GenericProblemDescription``. Add the distinct ``trainable_contract.mapping_complete`` signal."
+
+msgid "修复网页实测的一维非定常热传导映射：``t∈[0,1] s`` 不再只落入 opaque；方程使用 ``alpha`` 时，等值 unit-less ``diffusivity`` 会显式归一到 ``alpha=0.01 m^2/s`` 并记录原因。 冲突、缺单位、缺 BC/IC 或未绑定符号均 fail closed 为 mapping incomplete。"
+msgstr "Fix the observed one-dimensional transient heat mapping: ``t∈[0,1] s`` no longer remains only in opaque data. When the equation uses ``alpha``, an equivalent unit-less ``diffusivity`` is explicitly normalized to ``alpha=0.01 m^2/s`` with a recorded reason. Conflicts, missing units, missing BC/IC, and unbound symbols fail closed as mapping incomplete."
+
+msgid "本阶段只交付合同与确定性映射。CodeBuilder 仍输出 ``backend_runnable=false`` 骨架和 ``NotImplementedError``；未加入训练循环、physics adapter 或可运行入口。"
+msgstr "This stage delivers only the contract and deterministic mapping. CodeBuilder still emits a ``backend_runnable=false`` skeleton with ``NotImplementedError``; no training loop, physics adapter, or runnable entry point is added."

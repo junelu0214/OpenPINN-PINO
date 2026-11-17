@@ -1,0 +1,53 @@
+schema_version: 1
+experiment:
+  name: heterogeneous_poisson_1d_smoke
+  description: Fast CPU heterogeneous integration check. It is not an accuracy benchmark.
+  seed: 13
+  device: cpu
+  dtype: float64
+
+problem:
+  name: heterogeneous_poisson_1d
+  kind: heterogeneous_static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    interface: 0.0
+    left_diffusivity: 1.0
+    right_diffusivity: 4.0
+
+model:
+  input_dim: 1
+  output_dim: 1
+  hidden_layers: [16, 16]
+  activation: tanh
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 24
+  boundary: 4
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 3
+  log_every: 1
+
+evaluation:
+  points: 33
+
+output:
+  root: runs/smoke/heterogeneous_poisson
+  save_checkpoint: true

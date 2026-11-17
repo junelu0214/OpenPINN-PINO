@@ -1,0 +1,18 @@
+{%- extends "layout.html" %}
+{% set title = '搜索文档' %}
+{% block extrahead %}
+  {{ super() }}
+  <script src="{{ pathto('_static/openpinn_search_index.js', 1) }}" defer="defer"></script>
+  <meta name="robots" content="noindex" />
+{% endblock %}
+{% block body %}
+  <h1 id="search-documentation">搜索文档</h1>
+  <p>输入中文原词或英文关键词，例如“圆孔”“固结系数”“Poisson”。多个关键词用空格分隔，匹配同一小节中同时出现的内容。搜索与摘要均在本机完成，无需联网。</p>
+  <form id="openpinn-search-form" class="openpinn-doc-search" action="" method="get" role="search">
+    <label for="openpinn-search-query">关键词</label>
+    <input id="openpinn-search-query" name="q" type="search" maxlength="160" autocomplete="off" />
+    <button type="submit" class="btn btn-neutral">搜索</button>
+  </form>
+  <noscript><p>请启用 JavaScript，或使用左侧目录查阅文档。</p></noscript>
+  <div id="search-results" aria-live="polite" aria-atomic="false"></div>
+{% endblock %}

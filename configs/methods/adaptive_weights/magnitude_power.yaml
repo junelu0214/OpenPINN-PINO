@@ -1,0 +1,10 @@
+method:
+  name: adaptive_weights
+  variant: magnitude_power
+  options:
+    roots:
+      pde: 3.0
+      boundary: 2.0
+      initial: 2.0
+    default_root: 1.0
+    epsilon: 0.000000000001

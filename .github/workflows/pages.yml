@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # CPU pytest plus the real jsdom configurator codegen smokes. Those smokes
+  # consume the generated Sphinx page, so this job installs npm/docs
+  # dependencies and builds the site before pytest. Local scripts/check.sh
+  # also runs short CLI smokes and scripts/validate_method_configurator.py.
+  # No ruff config exists in the repo, so this job does not lint.
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install DOM test dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install CPU PyTorch and test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgomp1 pandoc
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[test,docs]"
+          python -c "import torch, openpinn; print(torch.__version__, torch.cuda.is_available(), openpinn.__version__)"
+      - name: Build Sphinx site for DOM smokes
+        run: python scripts/build_docs.py
+      - name: Pytest
+        run: python -m pytest -q
+
+  docs:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install documentation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgomp1 pandoc
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[docs]"
+          python -c "import torch, openpinn; print(torch.__version__, openpinn.__version__)"
+      - name: Build Sphinx site
+        run: python scripts/build_docs.py
+      - name: Refuse to publish highlighted source code
+        run: test ! -d docs/_build/html/_modules
+
+  build-and-publish:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install documentation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgomp1 pandoc
+          python -m pip install --upgrade pip
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e ".[docs]"
+          python -c "import torch, openpinn; print(torch.__version__, openpinn.__version__)"
+      - name: Build Sphinx site
+        run: python scripts/build_docs.py
+      - name: Refuse to publish highlighted source code
+        run: test ! -d docs/_build/html/_modules
+      # Gated Cloudflare Pages demo. The invite passphrase is the Pages secret
+      # INVITE_PASSPHRASE, set with `wrangler pages secret put`. This job does
+      # not read that value and does not publish a public GitHub Pages site.
+      - name: Stage the invite gate into the HTML output
+        run: python scripts/stage_demo_site.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Deploy the gated demo to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -eu
+          token="${CLOUDFLARE_API_TOKEN-}"
+          account="${CLOUDFLARE_ACCOUNT_ID-}"
+          token="${token//[[:space:]]/}"
+          account="${account//[[:space:]]/}"
+          if [ -z "${token}" ] || [ -z "${account}" ]; then
+            echo "::notice::Cloudflare deploy skipped. Set GitHub secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID, and the Pages secret INVITE_PASSPHRASE. See docs/demo_site.md."
+            exit 0
+          fi
+          test -f docs/_build/html/_worker.js
+          npx --yes wrangler@4.153.0 pages deploy docs/_build/html \
+            --project-name openpinn-upstream-demo \
+            --branch "${GITHUB_REF_NAME}" \
+            --commit-dirty=true \
+            --commit-hash "${GITHUB_SHA}"

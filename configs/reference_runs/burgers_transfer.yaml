@@ -1,0 +1,75 @@
+schema_version: 1
+experiment:
+  name: burgers_transfer_target
+  description: Target-stage configuration for scratch versus warm-started Burgers training.
+  seed: 20260826
+  device: cpu
+  dtype: float32
+
+problem:
+  name: burgers_1d
+  kind: dynamic
+  domain:
+    x: [-1.0, 1.0]
+    t: [0.0, 1.0]
+  parameters:
+    viscosity: 0.003183098861837907
+  equation: "u_t + u u_x - nu u_xx = 0"
+  initial_condition: "-sin(pi x)"
+  boundary_conditions:
+    type: dirichlet
+    value: 0.0
+
+model:
+  name: mlp
+  input_dim: 2
+  output_dim: 1
+  hidden_layers: [64, 64, 64, 64]
+  activation: tanh
+  initialization: xavier_uniform
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+  # null means full-network target fine-tuning.  The comparison example sets
+  # this to 1 only for the explicit last-layer partial-transfer variant.
+  trainable_last_linear_layers: null
+
+sampling:
+  name: uniform
+  interior: 512
+  boundary: 64
+  initial: 64
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+    initial: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 750
+  log_every: 50
+  initial_checkpoint: null
+
+evaluation:
+  points:
+    space: 129
+    time: 4
+  time_slices: [0.0, 0.33, 0.67, 1.0]
+  metrics: [relative_l2_error, max_absolute_error, rmse, residual_rmse, boundary_rmse, initial_rmse]
+  note: The bundled Cole--Hopf solution is evaluation-only; training sees only PDE, boundary and initial losses.
+
+output:
+  root: runs/burgers_transfer
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

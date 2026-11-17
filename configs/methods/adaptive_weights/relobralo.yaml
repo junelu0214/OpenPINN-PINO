@@ -1,0 +1,9 @@
+method:
+  name: adaptive_weights
+  variant: relobralo
+  options:
+    alpha: 0.999
+    temperature: 0.1
+    expected_lookback: 0.999
+    epsilon: 0.000000000001
+    seed: 0

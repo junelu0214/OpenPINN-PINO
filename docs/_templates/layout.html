@@ -1,0 +1,12 @@
+{% extends "!layout.html" %}
+
+{% block sidebartitle %}
+{{ super() }}
+<div class="doc-language-switch-wrap">
+  <a class="doc-language-switch" href="{{ language_switch_url }}"
+     hreflang="{{ 'zh-CN' if openpinn_language == 'en' else 'en' }}"
+     aria-label="{{ '切换文档语言' if openpinn_language != 'en' else 'Switch documentation language' }}">
+    {{ language_switch_label }}
+  </a>
+</div>
+{% endblock %}

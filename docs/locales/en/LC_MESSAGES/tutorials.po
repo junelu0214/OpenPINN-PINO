@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPINN 0.2.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "PINN 1D · 瞬态非线性 Burgers"
+msgstr "PINN 1D · Transient nonlinear Burgers"
+
+msgid "主线一覆盖瞬态非线性物理。求解"
+msgstr "The first primary path covers transient nonlinear physics. We solve"
+
+msgid "初值为 :math:`u(x,0)=-\\sin(\\pi x)`\\ ，边界为 :math:`u(-1,t)=u(1,t)=0`\\ 。内部、初值和边界 配点共同进入 PINN loss。已提交的演示结果为 **3000** 步、相对 L2 约 **0.041** （Cole–Hopf 参考）。下面的固定随机种子 12 步 CPU **smoke** 只检查链路， 不是该演示数字。"
+msgstr "The initial condition is :math:`u(x,0)=-\\sin(\\pi x)` and the boundaries are :math:`u(-1,t)=u(1,t)=0`. Interior, initial, and boundary collocation points all enter the PINN loss. The committed demo is **3000** steps with relative L2 about **0.041** (Cole–Hopf reference). The fixed-seed, 12-step CPU **smoke** run below only checks the workflow and is not that demo number."
+
+msgid "先看 :doc:`配置器教程 </configurator_tutorial>`，再打开 :doc:`方法配置器 </method_configurator>` 复现同类问题设置；其余主线见 :doc:`代码教程 </code_tutorials>`。配置器只下载 ``.py``，浏览器不训练。"
+msgstr "Start with the :doc:`Configurator tutorial </configurator_tutorial>`, then open the :doc:`Method Configurator </method_configurator>` to reproduce similar settings. Continue through the primary paths in :doc:`Code tutorials </code_tutorials>`. The configurator only downloads ``.py`` files; the browser does not train."
+
+msgid "训练：PDE + IC + BC 配点"
+msgstr "Training: PDE + IC + BC collocation points"
+
+msgid "训练损失"
+msgstr "Training loss"
+
+msgid "时空预测与独立参考"
+msgstr "Space-time prediction and independent reference"
+
+msgid "PINN 2D · 带孔板线弹性"
+msgstr "PINN 2D · Linear-elastic plate with a hole"
+
+msgid "主线二覆盖二维固体。\\ :math:`2\\,\\mathrm{m}\\times2\\,\\mathrm{m}` 平面应力板中心有半径 :math:`0.25\\,\\mathrm{m}` 的圆孔；左边固定，右边施加 :math:`1\\,\\mathrm{MPa}` 拉力，其余外边与 孔边无牵引。网络输出 :math:`(u_x,u_y)`\\ ，动量平衡、位移和牵引条件共同进入 loss。"
+msgstr "The second primary path covers a 2D solid. A :math:`2\\,\\mathrm{m}\\times2\\,\\mathrm{m}` plane-stress plate has a central circular hole of radius :math:`0.25\\,\\mathrm{m}`. The left edge is fixed, a :math:`1\\,\\mathrm{MPa}` traction is applied on the right, and the remaining outer and hole boundaries are traction-free. The network outputs :math:`(u_x,u_y)`; momentum balance, displacement, and traction conditions all enter the loss."
+
+msgid "下面复用仓库 ProblemSpec/MethodSpec，执行固定种子的 10 步 CPU **smoke**\\ 。Kirsch 解假设无限板，这里只作为物理量级与应力集中系数参考，不是有限板精度声明。"
+msgstr "The notebook reuses the repository's ProblemSpec/MethodSpec and runs a fixed-seed, 10-step CPU **smoke** test. The Kirsch solution assumes an infinite plate and is used only as a reference for physical scale and stress concentration, not as an accuracy claim for the finite plate."
+
+msgid "从规格构建并训练"
+msgstr "Build from specifications and train"
+
+msgid "位移场与圆孔几何"
+msgstr "Displacement field and circular-hole geometry"
+
+msgid "Operator 2D · Poisson · FNO × physics_only"
+msgstr "Operator 2D · Poisson · FNO × physics_only"
+
+msgid "主线三覆盖二维网格算子。区域为 :math:`[-1,1]^2`\\ ，方程和边界为"
+msgstr "The third primary path covers a 2D grid operator. The domain is :math:`[-1,1]^2`, with equation and boundary conditions"
+
+msgid "选择 **FNO × ``physics_only``**\\ ：FNO 与规则二维网格自然匹配，训练目标只含 PDE/BC 残差，因此不需要观测 CSV。解析解 :math:`\\sin(\\pi x)\\sin(\\pi y)` 只在训练后画图比较， 不进入 loss。已提交的演示结果为 **10000** 步、训后相对 L2 约 **0.039**\\ 。 该数字由维护者接受为展示质量；自动阈值 0.03 仍记为 ``passed: false``\\ 。 下面的固定随机种子、10 步 CPU **smoke** 只检查链路，不是该演示数字。"
+msgstr "We choose **FNO × ``physics_only``**: FNO naturally matches a regular 2D grid, and the training objective contains only PDE/BC residuals, so no observation CSV is needed. The analytic solution :math:`\\sin(\\pi x)\\sin(\\pi y)` is plotted only after training and does not enter the loss. The committed demo is **10000** steps with post-train relative L2 about **0.039**. That number is an accepted showcase; the automated 0.03 threshold remains ``passed: false``. The fixed-seed, 10-step CPU **smoke** run below only checks the workflow and is not that demo number."
+
+msgid "定义二维 PDE 与边界"
+msgstr "Define the 2D PDE and boundaries"
+
+msgid "physics-only 训练"
+msgstr "physics_only training"
+
+msgid "二维预测与解析参考"
+msgstr "2D prediction and analytic reference"
+
+msgid "本页已退出代码教程侧栏。二维 PINN 主案例见 :doc:`PINN 2D Poisson </tutorials/05_pinn_poisson_2d>`； 带孔板与 Kirsch 对照仍保留在本页，旧书签继续有效。"
+msgstr "This page has left the Code tutorials sidebar. The 2D PINN primary is :doc:`PINN 2D Poisson </tutorials/05_pinn_poisson_2d>`. The plate-with-hole case and its Kirsch comparison remain on this page, and old bookmarks keep working."
+
+msgid "PINN 2D · Poisson"
+msgstr "PINN 2D · Poisson"
+
+msgid "主线二覆盖二维 Poisson。区域为正方形 :math:`[-1,1]^2`\\ ，方程和边界为"
+msgstr "The second primary path covers 2D Poisson. The domain is the square :math:`[-1,1]^2`, with equation and boundary conditions"
+
+msgid "解析解 :math:`u=\\sin(\\pi x)\\sin(\\pi y)` 只在训练后比较，不进入 loss。边界是软 Dirichlet 零条件（\\ ``DirichletBC(0)``\\ ），不使用 hard_boundary。已提交的演示结果为 **5000** 步、相对 L2 约 **0.0337**\\ 。下面的固定随机种子、8 步 CPU **smoke** 只检查链路，不是该演示数字。"
+msgstr "The analytic solution :math:`u=\\sin(\\pi x)\\sin(\\pi y)` is compared only after training and does not enter the loss. The boundary is a soft Dirichlet zero condition (\\ ``DirichletBC(0)``\\ ); hard_boundary is not used. The committed demo is **5000** steps with relative L2 about **0.0337**. The fixed-seed, 8-step CPU **smoke** run below only checks the workflow and is not that demo number."
+
+msgid "训练：PDE + BC 配点"
+msgstr "Training: PDE + BC collocation points"
+
+msgid "已提交的演示结果"
+msgstr "Committed demo result"
+
+msgid "下图来自维护者演示训练，文件在 ``examples/tutorials/artifacts/m19/burgers/``\\ 。相对 L2 约 **0.041**\\ （3000 步，Cole–Hopf 参考）。上面的 CPU **smoke** 只检查调用链路。"
+msgstr "The figures below come from the maintainer demo and live in ``examples/tutorials/artifacts/m19/burgers/``. Relative L2 is about **0.041** (3000 steps, Cole–Hopf reference). The CPU **smoke** above only checks the call path."
+
+msgid "下图来自维护者演示训练，文件在 ``examples/tutorials/artifacts/m19/poisson_2d_pinn/``\\ 。相对 L2 约 **0.0337**\\ （5000 步，解析参考）。上面的 CPU **smoke** 只检查调用链路。"
+msgstr "The figures below come from the maintainer demo and live in ``examples/tutorials/artifacts/m19/poisson_2d_pinn/``. Relative L2 is about **0.0337** (5000 steps, analytic reference). The CPU **smoke** above only checks the call path."
+
+msgid "下图来自维护者演示训练，文件在 ``examples/tutorials/artifacts/m19/fno_physics_only/``\\ 。训后相对 L2 约 **0.039**\\ （10000 步）。自动阈值 0.03 仍为 ``passed: false``\\ ，维护者接受该展示质量。上面的 CPU **smoke** 只检查调用链路。"
+msgstr "The figures below come from the maintainer demo and live in ``examples/tutorials/artifacts/m19/fno_physics_only/``. Post-train relative L2 is about **0.039** (10000 steps). The automated 0.03 threshold remains ``passed: false``, and the maintainer accepted this showcase quality. The CPU **smoke** above only checks the call path."
+
+msgid "Smoke 指标"
+msgstr "Smoke metrics"
+
+msgid "固定种子 12 步 CPU **smoke** 只检查调用链路，不是演示数字。损失和误差已打印在上面的训练输出中。本页不再绘制 smoke 损失曲线或时空对比。演示图见下一节，文件在 ``examples/tutorials/artifacts/m19/burgers/``\\ 。"
+msgstr "The fixed-seed, 12-step CPU **smoke** only checks the call path and is not the demo number. Loss and error are already printed in the training output above. This page no longer draws the smoke loss curve or space-time comparison. Demo figures are in the next section, in ``examples/tutorials/artifacts/m19/burgers/``."
+
+msgid "固定种子 8 步 CPU **smoke** 只检查调用链路，不是演示数字。损失和误差已打印在上面的训练输出中。本页不再绘制 smoke 损失曲线或场对比。演示图见下一节，文件在 ``examples/tutorials/artifacts/m19/poisson_2d_pinn/``\\ 。"
+msgstr "The fixed-seed, 8-step CPU **smoke** only checks the call path and is not the demo number. Loss and error are already printed in the training output above. This page no longer draws the smoke loss curve or field comparison. Demo figures are in the next section, in ``examples/tutorials/artifacts/m19/poisson_2d_pinn/``."
+
+msgid "固定种子 10 步 CPU **smoke** 只检查调用链路，不是演示数字。物理损失已打印在上面的训练输出中；下面只打印训后参考相对 L2，不再绘制 smoke 损失曲线或场对比。演示图见下一节，文件在 ``examples/tutorials/artifacts/m19/fno_physics_only/``\\ 。"
+msgstr "The fixed-seed, 10-step CPU **smoke** only checks the call path and is not the demo number. Physics loss is already printed in the training output above; the next cell only prints the post-train reference relative L2 and does not draw the smoke loss curve or field comparison. Demo figures are in the next section, in ``examples/tutorials/artifacts/m19/fno_physics_only/``."

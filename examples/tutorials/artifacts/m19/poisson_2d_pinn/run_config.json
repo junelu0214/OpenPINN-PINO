@@ -1,0 +1,42 @@
+{
+  "problem": "poisson_2d_analytic",
+  "equation": "-u_xx-u_yy = 2*pi^2*sin(pi*x)*sin(pi*y)",
+  "exact": "sin(pi*x)*sin(pi*y)",
+  "domain": "Polygon [-1,1]^2",
+  "bc": "DirichletBC(0) soft (hard_boundary not used; only built-in poisson/burgers)",
+  "methods": [
+    "modified_mlp/gated_mlp",
+    "fourier/random_fourier",
+    "adaptive_weights/relobralo",
+    "adaptive_sampling/residual_adaptive",
+    "optional adam_lbfgs polish"
+  ],
+  "chunk": 2500,
+  "min_steps": 5000,
+  "max_steps": 15000,
+  "target_relative_l2": 0.05,
+  "soft_relative_l2": 0.1,
+  "seed": 0,
+  "device": "cuda",
+  "lr": 0.001,
+  "sampling": {
+    "interior": 2048,
+    "boundary": 512,
+    "candidate_pool": 8192
+  },
+  "model": {
+    "hidden_layers": [
+      64,
+      64,
+      64,
+      64
+    ]
+  },
+  "evaluation_points": {
+    "space": 81
+  },
+  "torch": "2.8.0+cu129",
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "openpinn": "0.2.0"
+}

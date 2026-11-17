@@ -1,0 +1,58 @@
+schema_version: 1
+experiment:
+  name: burgers_1d_smoke
+  description: Fast CPU integration check. It is not an accuracy benchmark.
+  seed: 11
+  device: cpu
+  dtype: float32
+
+problem:
+  name: burgers_1d
+  kind: dynamic
+  domain:
+    x: [-1.0, 1.0]
+    t: [0.0, 1.0]
+  parameters:
+    viscosity: 0.003183098861837907
+
+model:
+  input_dim: 2
+  output_dim: 1
+  hidden_layers: [16, 16]
+  activation: tanh
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 24
+  boundary: 8
+  initial: 8
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+    initial: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 3
+  log_every: 1
+
+evaluation:
+  points:
+    space: 9
+    time: 4
+  time_slices: [0.0, 0.33, 0.67, 1.0]
+  metrics: [relative_l2_error, max_absolute_error, rmse, residual_rmse, boundary_rmse, initial_rmse]
+
+output:
+  root: runs/smoke/burgers
+  save_checkpoint: true

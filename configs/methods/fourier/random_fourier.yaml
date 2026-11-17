@@ -1,0 +1,9 @@
+method:
+  name: fourier
+  variant: random_fourier
+  options:
+    num_frequencies: 16
+    scale: 1.0
+    seed: 29
+    include_input: true
+    trainable: false

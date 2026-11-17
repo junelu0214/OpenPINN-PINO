@@ -1,0 +1,69 @@
+schema_version: 1
+experiment:
+  name: coupled_elliptic_manufactured_1d_baseline
+  description: Two-field manufactured extensibility baseline; no engineering or accuracy claim.
+  seed: 41
+  device: cpu
+  dtype: float64
+
+problem:
+  name: coupled_elliptic_manufactured_1d
+  kind: coupled_static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    coupling_strength: 1.0
+  equation: "two coupled balances plus v_x - 3u = 0"
+  exact_solution: "u=x^2, v=x^3"
+
+model:
+  input_dim: 1
+  output_dim: 2
+  hidden_layers: [64, 64, 64, 64]
+  activation: tanh
+  initialization: xavier_uniform
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 512
+  boundary: 64
+
+loss:
+  formulation: strong
+  weights:
+    equation_u: 1.0
+    equation_v: 1.0
+    coupling: 1.0
+    boundary: 10.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 5000
+  log_every: 100
+
+evaluation:
+  points: 1001
+  metrics:
+    - relative_l2_u
+    - relative_l2_v
+    - residual_equation_u_rmse
+    - residual_equation_v_rmse
+    - residual_coupling_rmse
+    - boundary_u_rmse
+    - boundary_v_rmse
+
+output:
+  root: runs/coupled_elliptic_manufactured_1d_baseline
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

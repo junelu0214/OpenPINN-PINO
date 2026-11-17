@@ -1,0 +1,8 @@
+problem:
+  name: heterogeneous_poisson
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    interface: 0.0
+    left_diffusivity: 1.0
+    right_diffusivity: 4.0

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">PINN 配置器问题预览示意</title>
+  <desc id="desc">矩形带圆孔几何、Poisson 方程和四侧边界条件的三栏示意</desc>
+  <rect width="960" height="360" fill="#f7f9fc"/>
+  <g font-family="sans-serif" fill="#17233b">
+    <text x="160" y="35" text-anchor="middle" font-size="20" font-weight="700">1 · 几何</text>
+    <rect x="45" y="65" width="230" height="210" rx="8" fill="#dbeafe" stroke="#2563a8" stroke-width="3"/>
+    <circle cx="160" cy="170" r="38" fill="#f7f9fc" stroke="#2563a8" stroke-width="3"/>
+    <text x="160" y="310" text-anchor="middle" font-size="15">核对尺寸、孔洞与边编号</text>
+    <text x="480" y="35" text-anchor="middle" font-size="20" font-weight="700">2 · PDE</text>
+    <rect x="350" y="95" width="260" height="150" rx="12" fill="#ecfdf5" stroke="#16845b" stroke-width="3"/>
+    <text x="480" y="165" text-anchor="middle" font-size="25">−Δu = f(x, y)</text>
+    <text x="480" y="205" text-anchor="middle" font-size="15">公式、变量与输出维度</text>
+    <text x="800" y="35" text-anchor="middle" font-size="20" font-weight="700">3 · BC</text>
+    <rect x="690" y="65" width="220" height="210" rx="8" fill="#fff7ed" stroke="#c76316" stroke-width="3"/>
+    <text x="800" y="105" text-anchor="middle" font-size="15">top: Neumann</text>
+    <text x="800" y="170" text-anchor="middle" font-size="15">left / right: Dirichlet</text>
+    <text x="800" y="235" text-anchor="middle" font-size="15">bottom: Robin</text>
+    <text x="800" y="310" text-anchor="middle" font-size="15">逐边核对类型、值和方向</text>
+  </g>
+  <path d="M285 170h50" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M620 170h50" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#64748b"/></marker></defs>
+</svg>

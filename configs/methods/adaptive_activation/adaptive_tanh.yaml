@@ -1,0 +1,3 @@
+method:
+  name: adaptive_activation
+  variant: adaptive_tanh

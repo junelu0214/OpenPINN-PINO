@@ -1,0 +1,5 @@
+method:
+  name: domain_decomposition
+  variant: two_subdomain
+  options:
+    interface: 0.0

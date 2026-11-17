@@ -1,0 +1,75 @@
+schema_version: 1
+experiment:
+  name: poisson_1d_adam_lbfgs
+  description: Three-way fixed-seed comparison of Adam, L-BFGS, and Adam followed by L-BFGS.
+  seed: 20260826
+  device: cpu
+  dtype: float32
+
+problem:
+  name: poisson_1d
+  kind: static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    wave_number: 1.0
+    amplitude: 1.0
+  equation: "-u_xx = pi^2 sin(pi*x)"
+  exact_solution: "sin(pi*x)"
+  boundary_conditions:
+    type: dirichlet
+    value: 0.0
+
+model:
+  name: mlp
+  input_dim: 1
+  output_dim: 1
+  hidden_layers: [64, 64, 64]
+  activation: tanh
+  initialization: xavier_uniform
+  feature:
+    name: identity
+  output_transform:
+    name: soft
+
+sampling:
+  name: uniform
+  interior: 256
+  boundary: 32
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+
+optimizer:
+  name: adam_lbfgs
+  stages:
+    - name: adam
+      steps: 1000
+      lr: 0.001
+    - name: lbfgs
+      steps: 20
+      lr: 1.0
+      max_iter: 10
+      history_size: 50
+      line_search_fn: strong_wolfe
+
+training:
+  steps: 1020
+  resample_every: 2000
+  log_every: 100
+
+evaluation:
+  points: 501
+  metrics: [relative_l2, max_abs_error, residual_rmse, boundary_rmse]
+
+output:
+  root: runs/poisson_adam_lbfgs
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

@@ -1,0 +1,957 @@
+{
+  "schema_version": 1,
+  "description": "物理参数定义与材料数值分离。定义没有通用默认值；模板数值仅演示。单位维度顺序为质量M、长度L、时间T、温度Theta，year=365.25天。当前只执行单场1D/2D残差，不自动组装多场Biot/弹性耦合。",
+  "units": {
+    "1": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "m": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "cm": {
+      "factor": 0.01,
+      "dimensions": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "mm": {
+      "factor": 0.001,
+      "dimensions": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "s": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "day": {
+      "factor": 86400,
+      "dimensions": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "year": {
+      "factor": 31557600,
+      "dimensions": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    "Pa": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -1,
+        -2,
+        0
+      ]
+    },
+    "kPa": {
+      "factor": 1000,
+      "dimensions": [
+        1,
+        -1,
+        -2,
+        0
+      ]
+    },
+    "MPa": {
+      "factor": 1000000,
+      "dimensions": [
+        1,
+        -1,
+        -2,
+        0
+      ]
+    },
+    "GPa": {
+      "factor": 1000000000,
+      "dimensions": [
+        1,
+        -1,
+        -2,
+        0
+      ]
+    },
+    "K": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "m^2": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        2,
+        0,
+        0
+      ]
+    },
+    "m^2/s": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        2,
+        -1,
+        0
+      ]
+    },
+    "m^2/day": {
+      "factor": 0.000011574074074074073,
+      "dimensions": [
+        0,
+        2,
+        -1,
+        0
+      ]
+    },
+    "m^2/year": {
+      "factor": 3.168808781402895e-8,
+      "dimensions": [
+        0,
+        2,
+        -1,
+        0
+      ]
+    },
+    "m/s": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        1,
+        -1,
+        0
+      ]
+    },
+    "m/day": {
+      "factor": 0.000011574074074074073,
+      "dimensions": [
+        0,
+        1,
+        -1,
+        0
+      ]
+    },
+    "m/year": {
+      "factor": 3.168808781402895e-8,
+      "dimensions": [
+        0,
+        1,
+        -1,
+        0
+      ]
+    },
+    "Pa*s": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    "kg/m^3": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -3,
+        0,
+        0
+      ]
+    },
+    "1/Pa": {
+      "factor": 1,
+      "dimensions": [
+        -1,
+        1,
+        2,
+        0
+      ]
+    },
+    "1/kPa": {
+      "factor": 0.001,
+      "dimensions": [
+        -1,
+        1,
+        2,
+        0
+      ]
+    },
+    "1/m": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        -1,
+        0,
+        0
+      ]
+    },
+    "1/m^2": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        -2,
+        0,
+        0
+      ]
+    },
+    "1/s": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        0,
+        -1,
+        0
+      ]
+    },
+    "W/(m*K)": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        1,
+        -3,
+        -1
+      ]
+    },
+    "J/(kg*K)": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        2,
+        -2,
+        -1
+      ]
+    },
+    "W/m^3": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -1,
+        -3,
+        0
+      ]
+    },
+    "m/s^2": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        1,
+        -2,
+        0
+      ]
+    },
+    "N/m^3": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -2,
+        -2,
+        0
+      ]
+    },
+    "Pa/s": {
+      "factor": 1,
+      "dimensions": [
+        1,
+        -1,
+        -3,
+        0
+      ]
+    },
+    "1/K": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        0,
+        0,
+        -1
+      ]
+    },
+    "m^3/s": {
+      "factor": 1,
+      "dimensions": [
+        0,
+        3,
+        -1,
+        0
+      ]
+    }
+  },
+  "categories": [
+    {
+      "id": "common",
+      "label": "通用"
+    },
+    {
+      "id": "seepage",
+      "label": "渗流"
+    },
+    {
+      "id": "consolidation",
+      "label": "固结"
+    },
+    {
+      "id": "thermal",
+      "label": "热传导"
+    },
+    {
+      "id": "elasticity",
+      "label": "弹性"
+    }
+  ],
+  "parameters": [
+    {
+      "id": "common.density",
+      "category": "common",
+      "label": "密度",
+      "symbol": "rho",
+      "unit": "kg/m^3",
+      "description": "质量密度；随相态、温度和材料状态变化。",
+      "value": null
+    },
+    {
+      "id": "common.gravity",
+      "category": "common",
+      "label": "重力加速度",
+      "symbol": "g",
+      "unit": "m/s^2",
+      "description": "重力加速度的大小；方向应在方程中显式指定。",
+      "value": null
+    },
+    {
+      "id": "common.porosity",
+      "category": "common",
+      "label": "孔隙率",
+      "symbol": "n",
+      "unit": "1",
+      "description": "孔隙体积占总体积的比例；不要与孔隙比混用。",
+      "value": null
+    },
+    {
+      "id": "common.reference_length",
+      "category": "common",
+      "label": "参考长度",
+      "symbol": "L0",
+      "unit": "m",
+      "description": "供无量纲化或空间源项使用的长度。",
+      "value": null
+    },
+    {
+      "id": "common.reference_time",
+      "category": "common",
+      "label": "参考时间",
+      "symbol": "t0",
+      "unit": "s",
+      "description": "供无量纲化或时间源项使用的时间。",
+      "value": null
+    },
+    {
+      "id": "seepage.intrinsic_permeability",
+      "category": "seepage",
+      "label": "固有渗透率",
+      "symbol": "k",
+      "unit": "m^2",
+      "description": "介质固有渗透率；与包含流体性质的导水率不同。",
+      "value": null
+    },
+    {
+      "id": "seepage.hydraulic_conductivity_x",
+      "category": "seepage",
+      "label": "x方向导水率",
+      "symbol": "Kx",
+      "unit": "m/s",
+      "description": "以水头梯度定义Darcy速度时使用；本定义为标量方向分量。",
+      "value": null
+    },
+    {
+      "id": "seepage.hydraulic_conductivity_y",
+      "category": "seepage",
+      "label": "y方向导水率",
+      "symbol": "Ky",
+      "unit": "m/s",
+      "description": "以水头梯度定义Darcy速度时使用；非对角张量需显式写出方程。",
+      "value": null
+    },
+    {
+      "id": "seepage.dynamic_viscosity",
+      "category": "seepage",
+      "label": "动力黏度",
+      "symbol": "mu",
+      "unit": "Pa*s",
+      "description": "流体动力黏度；随温度和成分变化。",
+      "value": null
+    },
+    {
+      "id": "seepage.specific_storage",
+      "category": "seepage",
+      "label": "比储水量",
+      "symbol": "Ss",
+      "unit": "1/m",
+      "description": "以水头为未知量时单位水头变化的储水量。",
+      "value": null
+    },
+    {
+      "id": "seepage.pressure_storage",
+      "category": "seepage",
+      "label": "压力储存系数",
+      "symbol": "Sp",
+      "unit": "1/Pa",
+      "description": "以压力为未知量的储存参数；具体定义须与方程一致。",
+      "value": null
+    },
+    {
+      "id": "seepage.specific_yield",
+      "category": "seepage",
+      "label": "给水度",
+      "symbol": "Sy",
+      "unit": "1",
+      "description": "重力排水可释放水量的比例。",
+      "value": null
+    },
+    {
+      "id": "seepage.source_rate",
+      "category": "seepage",
+      "label": "体积源汇强度",
+      "symbol": "Qv",
+      "unit": "1/s",
+      "description": "每单位总体积的体积流量；正负号由方程约定。",
+      "value": null
+    },
+    {
+      "id": "consolidation.diffusivity",
+      "category": "consolidation",
+      "label": "固结系数（各向同性 / 一维）",
+      "symbol": "cv",
+      "unit": "m^2/s",
+      "description": "单场常系数固结扩散模型的固结系数；不同于渗透系数。时间采用年时应转换成 m^2/year 或统一单位。",
+      "value": null
+    },
+    {
+      "id": "consolidation.diffusivity_x",
+      "category": "consolidation",
+      "label": "x方向固结系数",
+      "symbol": "cx",
+      "unit": "m^2/s",
+      "description": "单场孔压扩散模型的方向系数；不是渗透率。",
+      "value": null
+    },
+    {
+      "id": "consolidation.diffusivity_y",
+      "category": "consolidation",
+      "label": "y方向固结系数",
+      "symbol": "cy",
+      "unit": "m^2/s",
+      "description": "单场孔压扩散模型的方向系数；需与时间单位一致。",
+      "value": null
+    },
+    {
+      "id": "consolidation.volume_compressibility",
+      "category": "consolidation",
+      "label": "体积压缩系数",
+      "symbol": "mv",
+      "unit": "1/Pa",
+      "description": "按有效应力变化定义的压缩系数，具体应力条件需记录。",
+      "value": null
+    },
+    {
+      "id": "consolidation.biot_coefficient",
+      "category": "consolidation",
+      "label": "Biot系数",
+      "symbol": "alphaB",
+      "unit": "1",
+      "description": "定义供扩展使用；当前编辑器不自动组装多场Biot方程。",
+      "value": null
+    },
+    {
+      "id": "consolidation.biot_modulus",
+      "category": "consolidation",
+      "label": "Biot模量",
+      "symbol": "M",
+      "unit": "Pa",
+      "description": "定义供扩展使用；需与孔隙率、流体及固体压缩性定义一致。",
+      "value": null
+    },
+    {
+      "id": "consolidation.initial_pressure",
+      "category": "consolidation",
+      "label": "初始超静孔压",
+      "symbol": "p0",
+      "unit": "Pa",
+      "description": "作为命名参数可用于初值或源项；没有通用材料默认值。",
+      "value": null
+    },
+    {
+      "id": "thermal.conductivity",
+      "category": "thermal",
+      "label": "导热系数",
+      "symbol": "lambdaT",
+      "unit": "W/(m*K)",
+      "description": "各向同性导热系数；各向异性情形需另定义分量。",
+      "value": null
+    },
+    {
+      "id": "thermal.specific_heat",
+      "category": "thermal",
+      "label": "比热容",
+      "symbol": "cp",
+      "unit": "J/(kg*K)",
+      "description": "按单位质量定义的比热容。",
+      "value": null
+    },
+    {
+      "id": "thermal.diffusivity",
+      "category": "thermal",
+      "label": "热扩散率",
+      "symbol": "aT",
+      "unit": "m^2/s",
+      "description": "导热系数除以密度及比热容的乘积。",
+      "value": null
+    },
+    {
+      "id": "thermal.volumetric_source",
+      "category": "thermal",
+      "label": "体积热源",
+      "symbol": "Qh",
+      "unit": "W/m^3",
+      "description": "单位体积的热功率；正负号由方程约定。",
+      "value": null
+    },
+    {
+      "id": "thermal.expansion",
+      "category": "thermal",
+      "label": "线膨胀系数",
+      "symbol": "alphaT",
+      "unit": "1/K",
+      "description": "热应变系数；当前目录不自动生成热弹性耦合。",
+      "value": null
+    },
+    {
+      "id": "elasticity.young_modulus",
+      "category": "elasticity",
+      "label": "杨氏模量",
+      "symbol": "E",
+      "unit": "Pa",
+      "description": "线弹性模量；各向同性假设须由模型确定。",
+      "value": null
+    },
+    {
+      "id": "elasticity.poisson_ratio",
+      "category": "elasticity",
+      "label": "泊松比",
+      "symbol": "nu",
+      "unit": "1",
+      "description": "横向应变与轴向应变之比的模型参数。",
+      "value": null
+    },
+    {
+      "id": "elasticity.shear_modulus",
+      "category": "elasticity",
+      "label": "剪切模量",
+      "symbol": "G",
+      "unit": "Pa",
+      "description": "剪切刚度；不是导水率或固有渗透率。",
+      "value": null
+    },
+    {
+      "id": "elasticity.bulk_modulus",
+      "category": "elasticity",
+      "label": "体积模量",
+      "symbol": "Kb",
+      "unit": "Pa",
+      "description": "体积应变与静水压力的刚度参数。",
+      "value": null
+    },
+    {
+      "id": "elasticity.lame_first",
+      "category": "elasticity",
+      "label": "第一Lamé常数",
+      "symbol": "lambdaL",
+      "unit": "Pa",
+      "description": "线弹性本构参数；不要与导热系数的符号混淆。",
+      "value": null
+    }
+  ],
+  "materials": [],
+  "templates": [
+    {
+      "id": "consolidation_1d",
+      "label": "一维固结（固结系数 cv，演示）",
+      "description": "一维常系数单场孔压固结：∂p/∂t=cv·∂²p/∂x²。适合教学与简化单场模型；不含位移-孔压 Biot 耦合。",
+      "is_demo": true,
+      "expression_text": "dt(p) = cv * dx(dx(p))",
+      "spec": {
+        "schema_version": 1,
+        "dimension": 1,
+        "kind": "dynamic",
+        "field": "p",
+        "expression": {"type":"binary","op":"-","left":{"type":"call","name":"dt","args":[{"type":"symbol","name":"p"}]},"right":{"type":"binary","op":"*","left":{"type":"symbol","name":"cv"},"right":{"type":"call","name":"dx","args":[{"type":"call","name":"dx","args":[{"type":"symbol","name":"p"}]}]}}},
+        "parameters": [{"id":"consolidation.diffusivity","symbol":"cv","value":0.1,"unit":"m^2/s"}],
+        "coordinate_units": {"x":"m","y":"m","t":"s"},
+        "field_unit": "Pa"
+      },
+      "initial_value": 1,
+      "boundary_value": 0
+    },
+    {
+      "id": "consolidation_2d_isotropic",
+      "label": "二维各向同性固结（固结系数 cv，演示）",
+      "description": "二维常系数单场孔压固结：∂p/∂t=cv·(∂²p/∂x²+∂²p/∂y²)。不是多场 Biot 固结。",
+      "is_demo": true,
+      "expression_text": "dt(p) = cv * (dx(dx(p)) + dy(dy(p)))",
+      "spec": {
+        "schema_version": 1,
+        "dimension": 2,
+        "kind": "dynamic",
+        "field": "p",
+        "expression": {"type":"binary","op":"-","left":{"type":"call","name":"dt","args":[{"type":"symbol","name":"p"}]},"right":{"type":"binary","op":"*","left":{"type":"symbol","name":"cv"},"right":{"type":"binary","op":"+","left":{"type":"call","name":"dx","args":[{"type":"call","name":"dx","args":[{"type":"symbol","name":"p"}]}]},"right":{"type":"call","name":"dy","args":[{"type":"call","name":"dy","args":[{"type":"symbol","name":"p"}]}]}}}},
+        "parameters": [{"id":"consolidation.diffusivity","symbol":"cv","value":0.1,"unit":"m^2/s"}],
+        "coordinate_units": {"x":"m","y":"m","t":"s"},
+        "field_unit": "Pa"
+      },
+      "initial_value": 1,
+      "boundary_value": 0
+    },
+    {
+      "id": "pressure_diffusion",
+      "label": "二维各向异性固结（cx / cy，演示）",
+      "description": "常系数各向异性孔压扩散；示例数值仅演示，不是实测参数或多场Biot模型。",
+      "is_demo": true,
+      "expression_text": "dt(p) = cx * dx(dx(p)) + cy * dy(dy(p))",
+      "spec": {
+        "schema_version": 1,
+        "dimension": 2,
+        "kind": "dynamic",
+        "field": "p",
+        "expression": {
+          "type": "binary",
+          "op": "-",
+          "left": {
+            "type": "call",
+            "name": "dt",
+            "args": [
+              {
+                "type": "symbol",
+                "name": "p"
+              }
+            ]
+          },
+          "right": {
+            "type": "binary",
+            "op": "+",
+            "left": {
+              "type": "binary",
+              "op": "*",
+              "left": {
+                "type": "symbol",
+                "name": "cx"
+              },
+              "right": {
+                "type": "call",
+                "name": "dx",
+                "args": [
+                  {
+                    "type": "call",
+                    "name": "dx",
+                    "args": [
+                      {
+                        "type": "symbol",
+                        "name": "p"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "right": {
+              "type": "binary",
+              "op": "*",
+              "left": {
+                "type": "symbol",
+                "name": "cy"
+              },
+              "right": {
+                "type": "call",
+                "name": "dy",
+                "args": [
+                  {
+                    "type": "call",
+                    "name": "dy",
+                    "args": [
+                      {
+                        "type": "symbol",
+                        "name": "p"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "id": "consolidation.diffusivity_x",
+            "symbol": "cx",
+            "value": 0.1,
+            "unit": "m^2/s"
+          },
+          {
+            "id": "consolidation.diffusivity_y",
+            "symbol": "cy",
+            "value": 0.2,
+            "unit": "m^2/s"
+          }
+        ],
+        "coordinate_units": {
+          "x": "m",
+          "y": "m",
+          "t": "s"
+        },
+        "field_unit": "Pa"
+      },
+      "initial_value": 1,
+      "boundary_value": 0
+    },
+    {
+      "id": "steady_darcy",
+      "label": "稳态Darcy水头方程（演示）",
+      "description": "常方向导水率下的单场水头方程；Darcy速度q=-K∇h。Neumann输入仍是法向导数，不能直接填写流量。示例值非实测。",
+      "is_demo": true,
+      "expression_text": "dx(Kx * dx(h)) + dy(Ky * dy(h))",
+      "spec": {
+        "schema_version": 1,
+        "dimension": 2,
+        "kind": "static",
+        "field": "h",
+        "expression": {
+          "type": "binary",
+          "op": "+",
+          "left": {
+            "type": "call",
+            "name": "dx",
+            "args": [
+              {
+                "type": "binary",
+                "op": "*",
+                "left": {
+                  "type": "symbol",
+                  "name": "Kx"
+                },
+                "right": {
+                  "type": "call",
+                  "name": "dx",
+                  "args": [
+                    {
+                      "type": "symbol",
+                      "name": "h"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "right": {
+            "type": "call",
+            "name": "dy",
+            "args": [
+              {
+                "type": "binary",
+                "op": "*",
+                "left": {
+                  "type": "symbol",
+                  "name": "Ky"
+                },
+                "right": {
+                  "type": "call",
+                  "name": "dy",
+                  "args": [
+                    {
+                      "type": "symbol",
+                      "name": "h"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "parameters": [
+          {
+            "id": "seepage.hydraulic_conductivity_x",
+            "symbol": "Kx",
+            "value": 0.001,
+            "unit": "m/s"
+          },
+          {
+            "id": "seepage.hydraulic_conductivity_y",
+            "symbol": "Ky",
+            "value": 0.001,
+            "unit": "m/s"
+          }
+        ],
+        "coordinate_units": {
+          "x": "m",
+          "y": "m",
+          "t": "s"
+        },
+        "field_unit": "m"
+      },
+      "boundary_value": 0
+    },
+    {
+      "id": "heat_diffusion",
+      "label": "热传导（演示）",
+      "description": "rho*cp*dT/dt=div(lambdaT*grad(T))；温度仅支持K，不支持带偏置的摄氏单位。示例数值非实测。",
+      "is_demo": true,
+      "expression_text": "rho * cp * dt(T) - dx(lambdaT * dx(T)) - dy(lambdaT * dy(T))",
+      "spec": {
+        "schema_version": 1,
+        "dimension": 2,
+        "kind": "dynamic",
+        "field": "T",
+        "expression": {
+          "type": "binary",
+          "op": "-",
+          "left": {
+            "type": "binary",
+            "op": "-",
+            "left": {
+              "type": "binary",
+              "op": "*",
+              "left": {
+                "type": "binary",
+                "op": "*",
+                "left": {
+                  "type": "symbol",
+                  "name": "rho"
+                },
+                "right": {
+                  "type": "symbol",
+                  "name": "cp"
+                }
+              },
+              "right": {
+                "type": "call",
+                "name": "dt",
+                "args": [
+                  {
+                    "type": "symbol",
+                    "name": "T"
+                  }
+                ]
+              }
+            },
+            "right": {
+              "type": "call",
+              "name": "dx",
+              "args": [
+                {
+                  "type": "binary",
+                  "op": "*",
+                  "left": {
+                    "type": "symbol",
+                    "name": "lambdaT"
+                  },
+                  "right": {
+                    "type": "call",
+                    "name": "dx",
+                    "args": [
+                      {
+                        "type": "symbol",
+                        "name": "T"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "right": {
+            "type": "call",
+            "name": "dy",
+            "args": [
+              {
+                "type": "binary",
+                "op": "*",
+                "left": {
+                  "type": "symbol",
+                  "name": "lambdaT"
+                },
+                "right": {
+                  "type": "call",
+                  "name": "dy",
+                  "args": [
+                    {
+                      "type": "symbol",
+                      "name": "T"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "parameters": [
+          {
+            "id": "common.density",
+            "symbol": "rho",
+            "value": 1000,
+            "unit": "kg/m^3"
+          },
+          {
+            "id": "thermal.specific_heat",
+            "symbol": "cp",
+            "value": 1000,
+            "unit": "J/(kg*K)"
+          },
+          {
+            "id": "thermal.conductivity",
+            "symbol": "lambdaT",
+            "value": 1,
+            "unit": "W/(m*K)"
+          }
+        ],
+        "coordinate_units": {
+          "x": "m",
+          "y": "m",
+          "t": "s"
+        },
+        "field_unit": "K"
+      },
+      "initial_value": 1,
+      "boundary_value": 0
+    }
+  ]
+}

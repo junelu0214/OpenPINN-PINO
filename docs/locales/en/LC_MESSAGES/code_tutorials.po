@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPINN 0.2.0\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "代码教程"
+msgstr "Code tutorials"
+
+msgid "三条主线覆盖不同物理与建模形态。notebook 保存了演示训练的损失和预测图 （Burgers 相对 L2 约 0.041 @ 3000 步，PINN 2D Poisson 约 0.0337 @ 5000 步， FNO × physics_only 约 0.039 @ 10000 步），并另附 CPU 短 smoke 供本地试跑。 Sphinx 只渲染已提交结果，不训练。"
+msgstr "Three primary paths cover different physics and modeling forms. The notebooks store demo-training loss and prediction figures (Burgers relative L2 about 0.041 at 3000 steps, PINN 2D Poisson about 0.0337 at 5000 steps, and FNO × physics_only about 0.039 at 10000 steps), plus a short CPU smoke run for a local try-out. Sphinx renders committed results and does not train."
+
+msgid "**PINN 1D — Burgers**：瞬态非线性方程、初边值条件、时空预测与参考对比。"
+msgstr "**PINN 1D — Burgers**: a transient nonlinear equation, initial and boundary conditions, space-time predictions, and reference comparison."
+
+msgid "**PINN 2D — Poisson**：正方形 :math:`[-1,1]^2` 上的解析 Poisson 方程，软 Dirichlet 零边界，训练后与 :math:`\\sin(\\pi x)\\sin(\\pi y)` 对照。"
+msgstr "**PINN 2D — Poisson**: analytic Poisson equation on the square :math:`[-1,1]^2`, soft Dirichlet zero boundaries, compared after training with :math:`\\sin(\\pi x)\\sin(\\pi y)`."
+
+msgid "**Operator 2D — Poisson**：选择 **FNO × physics_only**，因为二维规则网格天然匹配 FNO，而 physics-only 不需要观测 CSV，直接展示设计 PDE/BC 到物理残差训练的路径。"
+msgstr "**Operator 2D — Poisson**: uses **FNO × physics_only** because a regular 2D grid naturally matches FNO, while physics_only needs no observation CSV and directly demonstrates the path from PDE/BC design to physics-residual training."
+
+msgid "先阅读 :doc:`configurator_tutorial` 可在网页中复现同类问题设置；需要直接生成独立 ``.py`` 时打开 :doc:`method_configurator`。浏览器不训练，也不上传 notebook 或 CSV。"
+msgstr "Read :doc:`configurator_tutorial` to reproduce similar settings in the web UI. Open :doc:`method_configurator` when you want a standalone ``.py`` file. The browser neither trains nor uploads notebooks or CSV files."
+
+msgid "主教程"
+msgstr "Primary tutorials"
+
+msgid "带孔板线弹性 notebook（``05_pinn_plate_with_hole``）和早期 M17 notebooks 仍保留在 仓库和已生成 HTML 中，旧书签继续有效，但不再进入代码教程侧栏。"
+msgstr "The linear-elastic plate-with-hole notebook (``05_pinn_plate_with_hole``) and the earlier M17 notebooks remain in the repository and generated HTML, so old bookmarks keep working, but they are no longer in the Code tutorials sidebar."

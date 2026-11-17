@@ -1,0 +1,9 @@
+method:
+  name: adaptive_sampling
+  variant: residual_adaptive
+  options:
+    candidate_pool: 512
+    power: 1.0
+    uniform_mix: 0.1
+    epsilon: 0.000000000001
+    resample_every: 50

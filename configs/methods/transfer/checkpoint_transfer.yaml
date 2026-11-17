@@ -1,0 +1,8 @@
+method:
+  name: transfer
+  variant: checkpoint_transfer
+  options:
+    # 必须替换成结构兼容的 OpenPINN checkpoint.pt。
+    checkpoint: path/to/checkpoint.pt
+    # null 表示训练全部参数；1 表示只训练最后一个线性层。
+    trainable_last_linear_layers: null

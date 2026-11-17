@@ -1,0 +1,21 @@
+schema_version: 2
+experiment:
+  name: poisson_fourier_example
+  seed: 0
+  device: cpu
+
+problem:
+  name: poisson
+
+method:
+  name: fourier
+  variant: random_fourier
+  options:
+    num_frequencies: 16
+    scale: 1.0
+
+training:
+  steps: 200
+
+output:
+  root: runs

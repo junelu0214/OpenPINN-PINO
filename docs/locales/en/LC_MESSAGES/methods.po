@@ -1,0 +1,89 @@
+msgid ""
+msgstr "Project-Id-Version: OpenPINN 0.2.0\nLanguage: en\nContent-Type: text/plain; charset=UTF-8\n"
+
+msgid "十类改进方法详解"
+msgstr "Ten families of improved methods"
+msgid "Adam + L-BFGS：先找方向，再做二阶收尾"
+msgstr "Adam + L-BFGS: find a direction, then finish with second-order optimization"
+msgid "自适应激活函数"
+msgstr "Adaptive activation functions"
+msgid "自适应采样：训练点怎么随模型变化"
+msgstr "Adaptive sampling: moving training points with the model"
+msgid "损失平衡与自适应权重"
+msgstr "Loss balancing and adaptive weights"
+msgid "普通 PINN（``plain_pinn``）"
+msgstr "Plain PINN (``plain_pinn``)"
+msgid "多网络与区域分解：左右各学一段，界面再接起来"
+msgstr "Multiple networks and domain decomposition"
+msgid "Fourier 特征：先把坐标展开再交给网络"
+msgstr "Fourier features: expand coordinates before the network"
+msgid "硬边界约束：让网络天生满足 Dirichlet 边界"
+msgstr "Hard boundary constraints: satisfy Dirichlet boundaries by construction"
+msgid "Modified MLP：用门控融合缓解梯度传递困难"
+msgstr "Modified MLP: gated fusion for gradient propagation"
+msgid "顺序时间窗：先学早期，再打开后期"
+msgstr "Sequential time windows: learn early times before later times"
+msgid "迁移学习与继续训练：新问题不再完全从零开始"
+msgstr "Transfer learning and continued training"
+msgid "WAM 梯度配点移动（``gradient_movement``）"
+msgstr "WAM gradient-based collocation movement (``gradient_movement``)"
+msgid "损失重要性采样（``importance_sampling``）"
+msgstr "Loss importance sampling (``importance_sampling``)"
+msgid "RAM 残差配点移动（``residual_movement``）"
+msgstr "RAM residual-based collocation movement (``residual_movement``)"
+msgid "多量级幂损失（``magnitude_power``）"
+msgstr "Multi-magnitude power loss (``magnitude_power``)"
+msgid "逐点 SA-PINN（``pointwise_self_adaptive``）"
+msgstr "Pointwise SA-PINN (``pointwise_self_adaptive``)"
+msgid "ReLoBRaLo（``relobralo``）"
+msgstr "ReLoBRaLo (``relobralo``)"
+msgid "不确定性权重（``uncertainty_weighting``）"
+msgstr "Uncertainty weighting (``uncertainty_weighting``)"
+
+msgid "十种方法的实际结果摘要"
+msgstr "Summary of actual results for the ten methods"
+
+msgid "下表汇总 CPU 上单一固定随机种的 **短训参考** 实验，用于展示方法的可运行性和记录负结果， 不是充分收敛的精度排名。Burgers 解误差来自独立的 Cole–Hopf 参考解，只在训练完成后评估， 没有进入训练损失。每行同时列出同一方法页参考实验中的配对对照（普通 PINN、固定权重、 仅 Adam、目标域从头训练等），并非十种方法共用同一基线。三随机种子稳定性结果见 :doc:`reproducibility`；本表展示各方法页所引用的固定种正式运行。"
+msgstr "The table summarizes fixed single-seed CPU **short-training reference** runs to demonstrate that each method runs and to record negative results; it is not a fully converged accuracy ranking. Burgers solution errors use an independent Cole–Hopf reference evaluated only after training and never included in the training loss. Each row also shows the paired control from the same method-page experiment (such as a plain PINN, fixed weights, Adam only, or target-domain training from scratch), rather than one shared baseline for all ten methods. See :doc:`reproducibility` for three-seed stability results; this table reports the fixed-seed formal runs cited by each method page."
+
+msgid "表中的相对 L2、PDE 残差和用时都来自这些配对短训；相对 L2 接近或高于 1，只说明该次短训 尚未达到实用精度，不代表方法经过更长训练仍然无效。需要查看训练更充分的演示路径时， 请阅读 :doc:`configurator_tutorial` 和 :doc:`code_tutorials`。本表中高频 Poisson 的 Fourier、 Modified MLP 与硬边界三行已按 5000 步短训加长结果刷新；其余七行仍为原短训预算下的参考数字。 整表仍是短训参考，不是充分收敛排名。"
+msgstr "The relative L2, PDE residual, and time values in the table all come from these paired short runs. A relative L2 near or above 1 means only that the short run has not yet reached a useful accuracy level; it does not claim that the method remains ineffective after longer training. For fuller training demonstrations, see :doc:`configurator_tutorial` and :doc:`code_tutorials`. The Fourier, Modified MLP, and hard-boundary rows for high-frequency Poisson now use the extended 5000-step short-run results; the other seven rows retain their original short-run budgets. The full table remains a short-training reference, not a fully converged ranking."
+
+msgid "明显改善，但参数和时间增加"
+msgstr "Clear improvement, but more parameters and time"
+
+msgid "改进组相对 L2/边界更差（负结果保留）"
+msgstr "Improved arm worse on relative L2/boundary (negative result kept)"
+
+msgid "边界精确为零且相对 L2 改善，但 PDE 残差更高"
+msgstr "Boundary exact zero and better relative L2, but higher PDE residual"
+
+msgid "方法"
+msgstr "Method"
+
+msgid "案例"
+msgstr "Case"
+
+msgid "基线相对 L2"
+msgstr "Baseline relative L2"
+
+msgid "改进组相对 L2"
+msgstr "Improved relative L2"
+
+msgid "基线 PDE 残差"
+msgstr "Baseline PDE residual"
+
+msgid "改进组 PDE 残差"
+msgstr "Improved PDE residual"
+
+msgid "基线用时"
+msgstr "Baseline time"
+
+msgid "改进组用时"
+msgstr "Improved time"
+
+msgid "硬件"
+msgstr "Hardware"
+
+msgid "参考实验结论"
+msgstr "Reference-experiment conclusion"

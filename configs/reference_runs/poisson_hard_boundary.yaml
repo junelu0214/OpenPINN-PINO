@@ -1,0 +1,65 @@
+schema_version: 1
+experiment:
+  name: poisson_1d_hard_boundary
+  description: Fixed-seed comparison changing only soft to exact hard Dirichlet imposition.
+  seed: 20260826
+  device: cpu
+  dtype: float32
+
+problem:
+  name: poisson_1d
+  kind: static
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    wave_number: 4.0
+    amplitude: 1.0
+  equation: "-u_xx = (4*pi)^2 sin(4*pi*x)"
+  exact_solution: "sin(4*pi*x)"
+  boundary_conditions:
+    type: dirichlet
+    value: 0.0
+
+model:
+  name: mlp
+  input_dim: 1
+  output_dim: 1
+  hidden_layers: [64, 64, 64]
+  activation: tanh
+  initialization: xavier_uniform
+  feature:
+    name: identity
+  output_transform:
+    name: hard
+
+sampling:
+  name: uniform
+  interior: 256
+  boundary: 32
+
+loss:
+  formulation: strong
+  weights:
+    pde: 1.0
+    boundary: 1.0
+
+optimizer:
+  name: adam
+  lr: 0.001
+
+training:
+  steps: 1500
+  log_every: 250
+
+evaluation:
+  points: 501
+  metrics: [relative_l2, max_abs_error, residual_rmse, boundary_rmse]
+
+output:
+  root: runs/poisson_hard_boundary
+  save_config: true
+  save_metrics: true
+  save_history: true
+  save_predictions: true
+  save_compute_ledger: true
+  save_checkpoint: true

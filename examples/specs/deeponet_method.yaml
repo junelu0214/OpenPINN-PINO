@@ -1,0 +1,27 @@
+# MethodSpec: DeepONet operator-learning path
+
+method: deeponet
+path: operator
+
+sampling:
+  name: uniform
+  interior: 1024
+  boundary: 256
+
+loss:
+  formulation: strong
+
+optimizer:
+  name: adam
+  lr: 0.0005
+
+network:
+  name: mlp
+  hidden_layers: [128, 128, 128]
+  activation: tanh
+
+differentiator:
+  mode: autodiff
+
+training:
+  steps: 10000

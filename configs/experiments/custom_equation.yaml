@@ -1,0 +1,21 @@
+schema_version: 2
+experiment:
+  name: custom_equation_example
+  seed: 0
+  device: cpu
+
+problem:
+  factory: ../../user_projects/custom_equation/problem.py:build_problem
+
+method:
+  name: adaptive_sampling
+  variant: residual_adaptive
+  options:
+    candidate_pool: 256
+    resample_every: 10
+
+training:
+  steps: 200
+
+output:
+  root: runs

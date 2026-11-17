@@ -1,0 +1,79 @@
+# ProblemSpec: 2D plate with a central circular hole (plane stress)
+#
+# A 2 m x 2 m rectangular plate with a 0.25 m radius hole at the center,
+# loaded by uniform traction on the right edge and fixed on the left edge.
+# This is the canonical geometry for M3 Kirsch-style plate-with-hole
+# problems, but this file is only a *spec*: no training or codegen happens.
+
+dim: 2
+physics: linear_elasticity
+
+geometry:
+  outer:
+    type: rectangle
+    x_min: 0.0
+    x_max: 2.0
+    y_min: 0.0
+    y_max: 2.0
+  holes:
+    - type: circle
+      center: [1.0, 1.0]
+      radius: 0.25
+
+field:
+  kind: displacement
+  components: [ux, uy]
+
+constitutive:
+  model: isotropic_linear
+  E: 210.0e9          # Pa  (steel)
+  nu: 0.3
+  stress_voigt: true
+
+boundaries:
+  # Left edge: fully fixed (Dirichlet on both displacement components)
+  - id: fix_left
+    region: left
+    type: dirichlet
+    dofs: [ux, uy]
+    value: [0.0, 0.0]
+
+  # Right edge: uniform traction in x (Neumann)
+  - id: traction_right
+    region: right
+    type: neumann
+    dofs: [ux]
+    value: 1.0e6       # Pa
+
+  # Right edge: zero shear (Neumann in y)
+  - id: shear_right
+    region: right
+    type: neumann
+    dofs: [uy]
+    value: 0.0
+
+  # Top edge: traction-free
+  - id: free_top
+    region: top
+    type: neumann
+    dofs: [ux, uy]
+    value: [0.0, 0.0]
+
+  # Bottom edge: traction-free
+  - id: free_bottom
+    region: bottom
+    type: neumann
+    dofs: [ux, uy]
+    value: [0.0, 0.0]
+
+  # Hole boundary: traction-free
+  - id: free_hole
+    region: hole_0
+    type: neumann
+    dofs: [ux, uy]
+    value: [0.0, 0.0]
+
+units:
+  length: m
+  force: N
+  stress: Pa

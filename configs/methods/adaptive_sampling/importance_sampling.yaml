@@ -1,0 +1,7 @@
+method:
+  name: adaptive_sampling
+  variant: importance_sampling
+  options:
+    candidate_pool: 512
+    epsilon: 0.000000000001
+    resample_every: 50

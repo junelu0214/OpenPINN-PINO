@@ -1,0 +1,20 @@
+schema_version: 1
+mode: agent_workspace
+task:
+  id: unregistered_decay_pinn
+  title: Agent-authored PINN for an unregistered exponential-decay ODE
+  description_file: problem.md
+  plan_file: plan.md
+runner:
+  entrypoint: solution/run.py
+  args: []
+execution:
+  device: cpu
+  max_wall_seconds: 120
+  max_output_bytes: 104857600
+  output_dir: outputs/example_run
+  budget:
+    phase: smoke
+    steps: 40
+evidence:
+  result_file: run_result.json

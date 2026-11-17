@@ -1,0 +1,3 @@
+method:
+  name: hard_boundary
+  variant: exact_output_transform

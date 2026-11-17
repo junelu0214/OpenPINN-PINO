@@ -1,0 +1,3 @@
+training:
+  steps: 5
+  log_every: 1

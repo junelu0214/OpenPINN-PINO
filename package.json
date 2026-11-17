@@ -1,0 +1,11 @@
+{
+  "name": "openpinn-docs-tests",
+  "private": true,
+  "description": "Local development dependencies for OpenPINN browser DOM regression tests; not website runtime assets.",
+  "scripts": {
+    "test": "node --test tests/js/*.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "30.1.2"
+  }
+}

@@ -1,0 +1,38 @@
+.understanding-trial {
+  --trial-blue: #246a9b;
+  --trial-border: #c7d8e4;
+  margin: 1.2rem 0 2rem;
+  padding: 1rem;
+  border: 1px solid var(--trial-border);
+  border-radius: 10px;
+  background: #f8fbfd;
+}
+.understanding-trial label { display: grid; gap: .3rem; margin: .8rem 0; font-weight: 600; }
+.understanding-trial textarea { min-height: 8rem; resize: vertical; font-family: inherit; }
+.understanding-trial [data-role="answers"] { min-height: 5rem; font-family: monospace; }
+.understanding-trial-controls { display: grid; grid-template-columns: minmax(12rem, 1fr) auto; gap: .8rem; align-items: end; }
+.understanding-trial-api { margin-top: .8rem; padding: .8rem; border: 1px solid var(--trial-border); border-radius: 7px; background: #fff; }
+.understanding-trial-api h2 { margin-top: 0; font-size: 1.05rem; }
+.understanding-trial-llm-settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .8rem; }
+.understanding-trial-clear-key { align-self: end; }
+.understanding-trial input, .understanding-trial select { min-width: 0; }
+.understanding-trial button { padding: .55rem 1rem; color: #fff; background: var(--trial-blue); border: 0; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.understanding-trial button:disabled { opacity: .65; cursor: wait; }
+.understanding-trial-error { color: #9d2b2b; font-weight: 700; }
+.understanding-trial-results { margin-top: 1rem; }
+.understanding-trial-results[hidden] { display: none; }
+.understanding-trial-status { padding: .7rem; border-left: 4px solid var(--trial-blue); background: #edf6fb; }
+.understanding-trial-apply { margin: .8rem 0 1rem; }
+.understanding-trial-apply-button { display: inline-block; padding: .6rem 1rem; border-radius: 6px; background: var(--trial-blue); color: #fff !important; font-weight: 700; text-decoration: none; }
+.understanding-trial-apply-button[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+.understanding-trial-apply-button.is-partial { background: #9a5b00; }
+.understanding-trial-apply p { margin: .5rem 0 0; font-weight: 600; color: #9a5b00; }
+.understanding-trial-planning { margin: 1rem 0; padding: .8rem; border: 1px solid var(--trial-border); border-radius: 7px; background: #fff; }
+.understanding-trial-planning > h2 { margin-top: 0; font-size: 1.05rem; }
+.understanding-trial-planning > p { font-weight: 600; }
+.understanding-trial-planning h3 { margin-top: 0; font-size: 1rem; }
+.understanding-trial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.understanding-trial-grid section { padding: .7rem; border: 1px solid var(--trial-border); border-radius: 7px; background: #fff; }
+.understanding-trial-grid h2 { margin-top: 0; font-size: 1.05rem; }
+.understanding-trial pre { max-height: 28rem; overflow: auto; white-space: pre; }
+@media (max-width: 520px) { .understanding-trial-controls { grid-template-columns: 1fr; } }

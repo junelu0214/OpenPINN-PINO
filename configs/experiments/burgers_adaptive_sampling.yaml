@@ -1,0 +1,21 @@
+schema_version: 2
+experiment:
+  name: burgers_adaptive_sampling_example
+  seed: 0
+  device: cpu
+
+problem:
+  name: burgers
+
+method:
+  name: adaptive_sampling
+  variant: residual_adaptive
+  options:
+    candidate_pool: 512
+    resample_every: 50
+
+training:
+  steps: 200
+
+output:
+  root: runs

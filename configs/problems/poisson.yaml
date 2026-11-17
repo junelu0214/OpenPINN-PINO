@@ -1,0 +1,7 @@
+problem:
+  name: poisson
+  domain:
+    x: [-1.0, 1.0]
+  parameters:
+    wave_number: 1.0
+    amplitude: 1.0

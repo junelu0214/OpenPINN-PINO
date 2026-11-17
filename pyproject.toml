@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openpinn"
+version = "0.2.0"
+description = "A modular PyTorch PINN toolbox with problem and method selectors."
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = [
+  "torch>=2.0",
+  "numpy>=1.24",
+  "PyYAML>=6.0",
+  "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+agents = []
+test = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+]
+docs = [
+  "sphinx>=7,<9",
+  "sphinx-rtd-theme>=2,<4",
+  "sphinx-copybutton>=0.5,<1",
+  "nbsphinx>=0.9,<1",
+  "ipykernel>=6,<7",
+]
+
+[project.scripts]
+openpinn = "openpinn.cli:main"
+openpinn-validate = "openpinn.agents.__main__:main"
+openpinn-harness = "openpinn.harness.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+openpinn = ["physics_catalog.json", "py.typed"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

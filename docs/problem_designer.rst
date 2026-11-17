@@ -1,0 +1,50 @@
+:orphan:
+
+新控制方程与适用方法检查
+============================
+
+这个页面只完成两件事：生成/编辑一个新控制方程的 Python 代码，以及列出
+它在当前 OpenPINN 实现中可尝试的方法。它 **不会把方程注册进配置器**，
+也不会在浏览器中开始训练。
+
+.. important::
+
+   网页只能根据你选择的“静态 / 动态 / 一维两材料界面”做训练前结构判断，
+   不能在 ``file://`` 静态页面中执行任意 Python 代码。复制代码后在 VS Code
+   中运行，``op.check_method_compatibility(PROBLEM)`` 会再用包内同一套规则
+   打印报告。“结构上可尝试”不等于已证明精度良好，之后仍要做 1--5 步短跑。
+
+.. openpinn-problem-designer::
+
+复制代码后做什么
+--------------------
+
+#. 在项目 ``examples/`` 目录新建 ``my_new_equation.py``，粘贴代码。
+#. 按代码中的 ①②③ 修改区域、PDE 残差、边界/初值和名称。
+#. 点击 VS Code 右上角三角形。终端只输出适用性报告，不会训练。
+#. 选定一个“结构上可尝试”的方法后，再另行写 ``op.solve(...)`` 做
+   1--5 步短跑；短跑通过后才进入正式训练和对照。
+
+结果的三种状态
+----------------
+
+``结构上可直接尝试``
+   方程的静态/动态结构与方法实现声明一致；仍需短跑检查求导、维度和数值有限性。
+
+``满足附加条件后可尝试``
+   例如迁移学习还需匹配的 checkpoint，区域分解还需要指定的一维两材料界面元数据。
+
+``当前不适用``
+   当前代码实现没有声明支持该问题结构。不是说论文方法在数学上永远不能用，
+   而是表示 OpenPINN 当前变体不能安全地直接调用。
+
+Local operator scripts
+----------------------
+
+Below the scalar-equation editor, the page can also write a local script for
+a registered canonical model (DeepONet or FNO) plus a training mode. PINO is
+not a model option. Operator scripts
+call ``train_operator``. Copy and download are disabled when validation
+fails, and the page does not swap in another method. Run the downloaded file
+locally; this page does not train or solve. For the first-class 1D/2D operator
+PDE/BC/preview workflow, use :doc:`method_configurator`.
