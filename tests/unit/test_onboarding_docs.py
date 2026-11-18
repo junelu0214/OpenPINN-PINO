@@ -12,7 +12,7 @@ def read(relative):
 def test_readme_links_and_prebuild_manuals_exist():
     readme = read("README.md")
     for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", readme):
-        if target.startswith(("http:", "https:")):
+        if target.startswith(("http:", "https:", "mailto:")):
             continue
         if target.startswith("#"):
             assert f'id="{target[1:]}"' in readme
@@ -28,6 +28,9 @@ def test_readme_links_and_prebuild_manuals_exist():
     assert "ProblemSpec" in readme and "MethodSpec" in readme
     assert "CapabilityRegistry" in readme and "UnifiedRunResult" in readme
     assert "python scripts/build_docs.py" in readme
+    assert "## Contact and collaboration" in readme
+    assert "mailto:xiwang_chn@foxmail.com" in readme
+    assert (ROOT / "assets/contact/ai4physics-wechat-qr.png").is_file()
     assert "https://openpinn-upstream-demo.pages.dev" not in readme
     assert "out of band" not in readme
     assert "DOCS_DEPLOY_KEY" not in readme

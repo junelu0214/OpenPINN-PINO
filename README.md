@@ -222,6 +222,14 @@ New numerical methods should extend the relevant component interface, register t
 
 OpenPINN/PINO is research software. The current scope emphasizes smooth tutorial PDEs, registered PINN methods, DeepONet and FNO workflows, structured-grid operator physics, deterministic specification validation, and local reproducibility artifacts. Complex contact, strong geometric nonlinearity, and general three-dimensional unstructured neural operators remain outside the current validated scope.
 
+## Contact and collaboration
+
+For research collaboration, academic exchange, or project inquiries, please contact [xiwang_chn@foxmail.com](mailto:xiwang_chn@foxmail.com).
+
+研究合作、学术交流与项目咨询，可发送邮件至上述地址，或关注微信公众号 **AI4Physics**：
+
+<img src="assets/contact/ai4physics-wechat-qr.png" alt="AI4Physics WeChat public account QR code" width="320">
+
 ## Citation
 
 If OpenPINN/PINO contributes to your research, please cite the preprint:
