@@ -1,5 +1,10 @@
 # OpenPINN/PINO
 
+[![arXiv](https://img.shields.io/badge/arXiv-2611.23135-b31b1b.svg)](https://arxiv.org/abs/2611.23135)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+**Preprint:** [OpenPINN/PINO: An Extensible Open-Source Framework for Agent-Assisted Physics-Informed Neural Networks and Neural Operators](https://arxiv.org/abs/2611.23135)
+
 OpenPINN/PINO is an extensible PyTorch framework for physics-informed neural networks (PINNs), physics-informed neural operators, and agent-assisted scientific machine learning. It connects physical problem definition, numerical method configuration, local training, evaluation, and reproducible experiment records through shared machine-readable specifications.
 
 The framework represents a physical problem with `ProblemSpec` and a numerical recipe with `MethodSpec`. The method specification separates five configurable axes—model, sampling, loss, optimization, and differentiation—so researchers can compare or compose numerical strategies without duplicating complete training programs.
@@ -219,7 +224,19 @@ OpenPINN/PINO is research software. The current scope emphasizes smooth tutorial
 
 ## Citation
 
-The OpenPINN/PINO preprint citation and archival identifier will be added after the public preprint record is available.
+If OpenPINN/PINO contributes to your research, please cite the preprint:
+
+```bibtex
+@article{wang2026openpinn,
+  title   = {OpenPINN/PINO: An Extensible Open-Source Framework for Agent-Assisted Physics-Informed Neural Networks and Neural Operators},
+  author  = {Wang, Xi and Lu, Jun and Zhang, Cheng and Zhuang, Xiaoying and Rabczuk, Timon and Zhu, Hehua and Wu, Wei and Li, Peinan and Zhao, Jidong and Yin, Zhen-Yu and Sun, Hao},
+  journal = {arXiv preprint arXiv:2611.23135},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2611.23135}
+}
+```
+
+GitHub's **Cite this repository** menu uses [`CITATION.cff`](CITATION.cff), which contains the same preferred citation.
 
 ## License
 

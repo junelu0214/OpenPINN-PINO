@@ -1,0 +1,63 @@
+cff-version: 1.2.0
+message: "If you use OpenPINN/PINO in your research, please cite the preprint below."
+title: "OpenPINN/PINO"
+type: software
+version: 0.2.0
+license: Apache-2.0
+repository-code: "https://github.com/junelu0214/OpenPINN-PINO"
+url: "https://arxiv.org/abs/2611.23135"
+authors:
+  - family-names: Wang
+    given-names: Xi
+  - family-names: Lu
+    given-names: Jun
+  - family-names: Zhang
+    given-names: Cheng
+  - family-names: Zhuang
+    given-names: Xiaoying
+  - family-names: Rabczuk
+    given-names: Timon
+  - family-names: Zhu
+    given-names: Hehua
+  - family-names: Wu
+    given-names: Wei
+  - family-names: Li
+    given-names: Peinan
+  - family-names: Zhao
+    given-names: Jidong
+  - family-names: Yin
+    given-names: Zhen-Yu
+  - family-names: Sun
+    given-names: Hao
+preferred-citation:
+  type: article
+  title: "OpenPINN/PINO: An Extensible Open-Source Framework for Agent-Assisted Physics-Informed Neural Networks and Neural Operators"
+  year: 2026
+  authors:
+    - family-names: Wang
+      given-names: Xi
+    - family-names: Lu
+      given-names: Jun
+    - family-names: Zhang
+      given-names: Cheng
+    - family-names: Zhuang
+      given-names: Xiaoying
+    - family-names: Rabczuk
+      given-names: Timon
+    - family-names: Zhu
+      given-names: Hehua
+    - family-names: Wu
+      given-names: Wei
+    - family-names: Li
+      given-names: Peinan
+    - family-names: Zhao
+      given-names: Jidong
+    - family-names: Yin
+      given-names: Zhen-Yu
+    - family-names: Sun
+      given-names: Hao
+  identifiers:
+    - type: other
+      value: "arXiv:2611.23135"
+      description: "arXiv preprint identifier"
+  url: "https://arxiv.org/abs/2611.23135"
