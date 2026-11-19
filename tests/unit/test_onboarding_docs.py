@@ -31,7 +31,7 @@ def test_readme_links_and_prebuild_manuals_exist():
     assert "## Contact and collaboration" in readme
     assert "mailto:xiwang_chn@foxmail.com" in readme
     assert (ROOT / "assets/contact/ai4physics-wechat-qr.png").is_file()
-    assert "https://openpinn-upstream-demo.pages.dev" not in readme
+    assert "https://openpinn-upstream-demo.pages.dev" in readme
     assert "out of band" not in readme
     assert "DOCS_DEPLOY_KEY" not in readme
 

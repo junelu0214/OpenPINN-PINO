@@ -1,9 +1,12 @@
 # OpenPINN/PINO
 
 [![arXiv](https://img.shields.io/badge/arXiv-2611.23135-b31b1b.svg)](https://arxiv.org/abs/2611.23135)
+[![Website](https://img.shields.io/badge/Website-Documentation-2ea44f.svg)](https://openpinn-upstream-demo.pages.dev)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 **Preprint:** [OpenPINN/PINO: An Extensible Open-Source Framework for Agent-Assisted Physics-Informed Neural Networks and Neural Operators](https://arxiv.org/abs/2611.23135)
+
+**Website:** [Online documentation and browser configurator](https://openpinn-upstream-demo.pages.dev)
 
 OpenPINN/PINO is an extensible PyTorch framework for physics-informed neural networks (PINNs), physics-informed neural operators, and agent-assisted scientific machine learning. It connects physical problem definition, numerical method configuration, local training, evaluation, and reproducible experiment records through shared machine-readable specifications.
 

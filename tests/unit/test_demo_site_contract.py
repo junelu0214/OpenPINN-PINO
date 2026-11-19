@@ -1,4 +1,4 @@
-"""The optional gated demo stays out of the public project landing page."""
+"""The public landing page links to the gated demo without exposing its secret."""
 
 from pathlib import Path
 import subprocess
@@ -41,7 +41,7 @@ def test_publish_job_deploys_the_gated_pages_project():
     assert "CLOUDFLARE_API_TOKEN" in demo
     assert "Rotate the invite" in demo
     readme = read("README.md")
-    assert "https://openpinn-upstream-demo.pages.dev" not in readme
+    assert "https://openpinn-upstream-demo.pages.dev" in readme
     assert "INVITE_PASSPHRASE" not in readme
     assert "python -m sphinx" not in readme
 
